@@ -12,19 +12,12 @@ namespace WF2
     using System;
     using System.Collections.Generic;
     
-    public partial class bab
+    public partial class bab_local
     {
         public int ndoc { get; set; }
         public string id { get; set; }
         public int random { get; set; }
-        public string dictionary { get; set; }
-        public string text { get; set; }
-        public string rpa { get; set; }
-        public string cc { get; set; }
-        public string dxp { get; set; }
-        public string xml { get; set; }
-        public string extra { get; set; }
     
-        public virtual bab_local bab_local { get; set; }
+        public virtual bab bab { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="test1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="test1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="bab">
           <Key>
             <PropertyRef Name="ndoc" />
@@ -20,11 +20,43 @@
           <Property Name="xml" Type="longtext" />
           <Property Name="extra" Type="text" />
         </EntityType>
+        <EntityType Name="bab_local">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="random" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ban">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="int" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="random" Type="int" Nullable="false" />
+          <Property Name="dictionary" Type="varchar" MaxLength="256" />
+          <Property Name="text" Type="longtext" />
+          <Property Name="cc" Type="varchar" MaxLength="256" />
+          <Property Name="dxp" Type="varchar" MaxLength="256" />
+          <Property Name="xml" Type="longtext" />
+          <Property Name="extra" Type="text" />
+        </EntityType>
+        <EntityType Name="bar_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dictionary" Type="varchar" MaxLength="256" />
+          <Property Name="text" Type="longtext" />
+        </EntityType>
         <EntityContainer Name="test1ModelStoreContainer">
           <EntitySet Name="bab" EntityType="Self.bab" Schema="test1" store:Type="Tables" />
+          <EntitySet Name="bab_local" EntityType="Self.bab_local" Schema="test1" store:Type="Tables" />
+          <EntitySet Name="ban" EntityType="Self.ban" Schema="test1" store:Type="Tables" />
+          <EntitySet Name="bar_data" EntityType="Self.bar_data" Schema="test1" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -42,10 +74,61 @@
           <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bab_local" Relationship="test1Model.bab_localbab" FromRole="bab" ToRole="bab_local" />
         </EntityType>
         <EntityContainer Name="test1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bab" EntityType="Self.bab" />
+          <EntitySet Name="ban" EntityType="test1Model.ban" />
+          <EntitySet Name="bar_data" EntityType="test1Model.bar_data" />
+          <EntitySet Name="bab_local" EntityType="test1Model.bab_local" />
+          <AssociationSet Name="bab_localbab" Association="test1Model.bab_localbab">
+            <End Role="bab_local" EntitySet="bab_local" />
+            <End Role="bab" EntitySet="bab" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ban">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="random" Type="Int32" Nullable="false" />
+          <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="cc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="bar_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="bab_local">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="random" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bab" Relationship="test1Model.bab_localbab" FromRole="bab_local" ToRole="bab" />
+        </EntityType>
+        <Association Name="bab_localbab">
+          <End Type="test1Model.bab_local" Role="bab_local" Multiplicity="1" />
+          <End Type="test1Model.bab" Role="bab" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="bab_local">
+              <PropertyRef Name="ndoc" />
+            </Principal>
+            <Dependent Role="bab">
+              <PropertyRef Name="ndoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -65,6 +148,39 @@
                 <ScalarProperty Name="dxp" ColumnName="dxp" />
                 <ScalarProperty Name="xml" ColumnName="xml" />
                 <ScalarProperty Name="extra" ColumnName="extra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ban">
+            <EntityTypeMapping TypeName="test1Model.ban">
+              <MappingFragment StoreEntitySet="ban">
+                <ScalarProperty Name="extra" ColumnName="extra" />
+                <ScalarProperty Name="xml" ColumnName="xml" />
+                <ScalarProperty Name="dxp" ColumnName="dxp" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dictionary" ColumnName="dictionary" />
+                <ScalarProperty Name="random" ColumnName="random" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ndoc" ColumnName="ndoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bar_data">
+            <EntityTypeMapping TypeName="test1Model.bar_data">
+              <MappingFragment StoreEntitySet="bar_data">
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dictionary" ColumnName="dictionary" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bab_local">
+            <EntityTypeMapping TypeName="test1Model.bab_local">
+              <MappingFragment StoreEntitySet="bab_local">
+                <ScalarProperty Name="random" ColumnName="random" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ndoc" ColumnName="ndoc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
