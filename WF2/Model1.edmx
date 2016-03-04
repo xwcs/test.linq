@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="test1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bab">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="int" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="random" Type="int" Nullable="false" />
+          <Property Name="dictionary" Type="varchar" MaxLength="256" />
+          <Property Name="text" Type="longtext" />
+          <Property Name="rpa" Type="varchar" MaxLength="256" />
+          <Property Name="cc" Type="varchar" MaxLength="256" />
+          <Property Name="dxp" Type="varchar" MaxLength="256" />
+          <Property Name="xml" Type="longtext" />
+          <Property Name="extra" Type="text" />
+        </EntityType>
+        <EntityContainer Name="test1ModelStoreContainer">
+          <EntitySet Name="bab" EntityType="Self.bab" Schema="test1" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bab">
+          <Key>
+            <PropertyRef Name="ndoc" />
+          </Key>
+          <Property Name="ndoc" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="random" Type="Int32" Nullable="false" />
+          <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="rpa" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="cc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="test1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bab" EntityType="Self.bab" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="test1ModelStoreContainer" CdmEntityContainer="test1Entities">
+          <EntitySetMapping Name="bab">
+            <EntityTypeMapping TypeName="test1Model.bab">
+              <MappingFragment StoreEntitySet="bab">
+                <ScalarProperty Name="ndoc" ColumnName="ndoc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="random" ColumnName="random" />
+                <ScalarProperty Name="dictionary" ColumnName="dictionary" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="rpa" ColumnName="rpa" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="dxp" ColumnName="dxp" />
+                <ScalarProperty Name="xml" ColumnName="xml" />
+                <ScalarProperty Name="extra" ColumnName="extra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
