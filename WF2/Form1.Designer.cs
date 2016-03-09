@@ -36,6 +36,7 @@
 			this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
 			this.bar1 = new DevExpress.XtraBars.Bar();
 			this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+			this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
 			this.bar2 = new DevExpress.XtraBars.Bar();
 			this.bar3 = new DevExpress.XtraBars.Bar();
 			this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -49,7 +50,6 @@
 			this.entityInstantFeedbackSource1 = new DevExpress.Data.Linq.EntityInstantFeedbackSource();
 			this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
 			this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-			this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
 			this.layoutControl1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
@@ -143,6 +143,13 @@
 			this.barButtonItem1.Name = "barButtonItem1";
 			this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
 			// 
+			// barButtonItem2
+			// 
+			this.barButtonItem2.Caption = "Form2";
+			this.barButtonItem2.Id = 1;
+			this.barButtonItem2.Name = "barButtonItem2";
+			this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
+			// 
 			// bar2
 			// 
 			this.bar2.BarName = "Main menu";
@@ -235,20 +242,13 @@
 			// 
 			// entityInstantFeedbackSource1
 			// 
-			this.entityInstantFeedbackSource1.DefaultSorting = "ndoc asc";
+			this.entityInstantFeedbackSource1.DefaultSorting = "id asc";
 			this.entityInstantFeedbackSource1.DesignTimeElementType = typeof(WF2.bab_view_data);
-			this.entityInstantFeedbackSource1.KeyExpression = "ndoc";
+			this.entityInstantFeedbackSource1.KeyExpression = "id";
 			// 
 			// bindingSource1
 			// 
 			this.bindingSource1.DataSource = typeof(WF2.bab);
-			// 
-			// barButtonItem2
-			// 
-			this.barButtonItem2.Caption = "Form2";
-			this.barButtonItem2.Id = 1;
-			this.barButtonItem2.Name = "barButtonItem2";
-			this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
 			// 
 			// Form1
 			// 

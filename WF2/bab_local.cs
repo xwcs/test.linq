@@ -14,8 +14,7 @@ namespace WF2
     
     public partial class bab_local
     {
-        public int ndoc { get; set; }
-        public string id { get; set; }
+        public int id { get; set; }
         public int random { get; set; }
     
         public virtual bab bab { get; set; }

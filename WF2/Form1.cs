@@ -14,7 +14,7 @@ namespace WF2
 	{
 		test1Entities ctx;
 		test1Entities gridCtx;
-		string currentId;
+		int currentId;
 
 		public Form1()
 		{

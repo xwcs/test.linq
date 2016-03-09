@@ -14,14 +14,14 @@ namespace WF2
     
     public partial class bab
     {
-        public int ndoc { get; set; }
-        public string id { get; set; }
+        public int id { get; set; }
         public int random { get; set; }
         public string dictionary { get; set; }
         public string text { get; set; }
         public string rpa { get; set; }
         public string cc { get; set; }
         public string dxp { get; set; }
+        public int ndoc { get; set; }
         public string xml { get; set; }
         public string extra { get; set; }
     

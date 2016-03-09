@@ -28,37 +28,19 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
-			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
 			this.gridControl1 = new DevExpress.XtraGrid.GridControl();
 			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+			this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
+			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
 			this.splitContainerControl1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// dataLayoutControl1
-			// 
-			this.dataLayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataLayoutControl1.Location = new System.Drawing.Point(0, 0);
-			this.dataLayoutControl1.Name = "dataLayoutControl1";
-			this.dataLayoutControl1.Root = this.layoutControlGroup1;
-			this.dataLayoutControl1.Size = new System.Drawing.Size(706, 246);
-			this.dataLayoutControl1.TabIndex = 0;
-			this.dataLayoutControl1.Text = "dataLayoutControl1";
-			// 
-			// layoutControlGroup1
-			// 
-			this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-			this.layoutControlGroup1.GroupBordersVisible = false;
-			this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlGroup1.Name = "layoutControlGroup1";
-			this.layoutControlGroup1.Size = new System.Drawing.Size(706, 246);
-			this.layoutControlGroup1.TextVisible = false;
 			// 
 			// splitContainerControl1
 			// 
@@ -91,6 +73,25 @@
 			this.gridView1.GridControl = this.gridControl1;
 			this.gridView1.Name = "gridView1";
 			// 
+			// dataLayoutControl1
+			// 
+			this.dataLayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataLayoutControl1.Location = new System.Drawing.Point(0, 0);
+			this.dataLayoutControl1.Name = "dataLayoutControl1";
+			this.dataLayoutControl1.Root = this.layoutControlGroup1;
+			this.dataLayoutControl1.Size = new System.Drawing.Size(706, 246);
+			this.dataLayoutControl1.TabIndex = 0;
+			this.dataLayoutControl1.Text = "dataLayoutControl1";
+			// 
+			// layoutControlGroup1
+			// 
+			this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+			this.layoutControlGroup1.GroupBordersVisible = false;
+			this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlGroup1.Name = "layoutControlGroup1";
+			this.layoutControlGroup1.Size = new System.Drawing.Size(706, 246);
+			this.layoutControlGroup1.TextVisible = false;
+			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,22 +100,22 @@
 			this.Controls.Add(this.splitContainerControl1);
 			this.Name = "Form2";
 			this.Text = "Form2";
-			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
 			this.splitContainerControl1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl1;
-		private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
 		private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
 		private DevExpress.XtraGrid.GridControl gridControl1;
 		private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+		private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl1;
+		private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+		private System.ComponentModel.BackgroundWorker backgroundWorker1;
 	}
 }

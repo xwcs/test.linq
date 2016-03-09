@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xwcs.core", "xwcs.core\xwcs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xwcs.core.ui", "xwcs.core.ui\xwcs.core.ui.csproj", "{13078A0F-C037-44E2-97A3-FDDEF2FAED8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyper.ComponentModel", "HyperPropertyDescriptor\src\Hyper.ComponentModel\Hyper.ComponentModel.csproj", "{3B8F9EDB-6E5E-450C-ABC2-EC49075D0B50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{13078A0F-C037-44E2-97A3-FDDEF2FAED8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13078A0F-C037-44E2-97A3-FDDEF2FAED8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13078A0F-C037-44E2-97A3-FDDEF2FAED8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B8F9EDB-6E5E-450C-ABC2-EC49075D0B50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B8F9EDB-6E5E-450C-ABC2-EC49075D0B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B8F9EDB-6E5E-450C-ABC2-EC49075D0B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B8F9EDB-6E5E-450C-ABC2-EC49075D0B50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
