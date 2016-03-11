@@ -31,38 +31,8 @@ namespace DevExpress.XtraDataLayout
 			helper.FillWithSuggestedValues(info);
 			return info;
 		}
-		/*
-		protected override void OnDataSourceChanged()
-		{
-			try
-			{
-				this.DataControllerCore.SetListSource(this.BindingContext, this.DataSource, this.DataMember);
-			}
-			catch
-			{
-				this.DestroyDataController();
-				ArrayList list = new ArrayList(base.Controls);
-				foreach (Control control in list)
-				{
-					if (!((ILayoutDesignerMethods)this).IsInternalControl(control))
-					{
-						control.DataBindings.Clear();
-					}
-				}
-				this.dataSource = null;
-				this.dataMember = string.Empty;
-				this.SetupDataController();
-				if (base.DesignMode)
-				{
-					XtraMessageBox.Show("The data bindings of inner controls have been removed. The DataLayoutControl's DataSource and DataMember properties have been reset.", Localizer.Active.GetLocalizedString(StringId.CaptionError), MessageBoxButtons.OK, MessageBoxIcon.Hand);
-				}
-				return;
-			}
-			if ((this.AutoRetrieveFields && (base.Root.Items.Count == 0)) && !base.DesignMode)
-			{
-				this.RetrieveFields();
-			}
-		}
-		*/
+
+		
+		
 	}
 }

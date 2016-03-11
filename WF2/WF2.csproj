@@ -95,7 +95,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ban.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Modelxxxx.tt</DependentUpon>
     </Compile>
     <Compile Include="bar_data.cs">
       <DependentUpon>Model1.tt</DependentUpon>

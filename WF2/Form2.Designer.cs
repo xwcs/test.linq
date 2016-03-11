@@ -33,7 +33,6 @@
 			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
 			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
 			this.splitContainerControl1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -116,6 +115,5 @@
 		private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
 		private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl1;
 		private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-		private System.ComponentModel.BackgroundWorker backgroundWorker1;
 	}
 }

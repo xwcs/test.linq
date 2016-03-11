@@ -25,7 +25,7 @@ namespace WF2
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ban> ban { get; set; }
         public virtual DbSet<names> names { get; set; }
+        public virtual DbSet<ban> ban { get; set; }
     }
 }
