@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 using System.Security;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace WF2
 {
@@ -19,6 +21,38 @@ namespace WF2
 		{
 			return new BindingList<T>(range.ToList());
 		}
+
+		
+		public static string DumpToTypedXml(this object objectInstance)
+		{
+			var serializer = new XmlSerializer(objectInstance.GetType());
+			var sb = new StringBuilder();
+
+			using (TextWriter writer = new StringWriter(sb))
+			{
+				writer.WriteLine(objectInstance.GetType().FullName);
+				serializer.Serialize(writer, objectInstance);
+			}
+
+			return sb.ToString();
+		}
+
+		public static object CreateObjectFromTypedXml(this string objectData)
+		{
+			if (objectData.Length == 0) return null;	
+
+			object result;
+
+			using (TextReader reader = new StringReader(objectData))
+			{
+				var serializer = new XmlSerializer(Type.GetType(reader.ReadLine()));
+				result = serializer.Deserialize(reader);
+			}
+
+			return result;
+		}
+
+		
 	}
 
 
@@ -70,23 +104,62 @@ namespace WF2
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
 		[Display(Name = "N_RPA", GroupName = "n")]
 		public string n_rpa { get; set; }
-		[Display(Name = "N_CC", GroupName = "n")]
+		[Display(Name = "N_CC", GroupName = "n"), Required()]
 		public string n_cc { get; set; }
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
-		[Display(Name = "N_DXP", GroupName = "n")]
+		[Display(Name = "N_DXP", GroupName = "n"), DataType(DataType.MultilineText)]
 		public string n_dxp { get; set; }
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = 0xFFADFF2F)]
 		[Display(Name = "N_Date", GroupName = "n")]
 		public DateTime n_data { get; set; }
 	}
 
+
+	public class bab_ext_1
+	{
+		public const UInt32 greenColor = 0xff008000;
+
+		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
+		[Display(Name = "N_RPA", GroupName = "n")]
+		public string n_rpa { get; set; }
+		[Display(Name = "N_CC", GroupName = "n")]
+		public string n_cc { get; set; }
+		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
+		[Display(Name = "N_DXP", GroupName = "n")]
+		public string n_dxp { get; set; }
+	}
+
 	//[TypeDescriptionProvider(typeof(SomeTypeDescriptionProvider<bab>))]
 	[MetadataType(typeof(bab_meta))]
 	public partial class bab {
 
+		[System.ComponentModel.DataAnnotations.Schema.NotMapped]
 		[Display(Name = "Embeded", GroupName = "{tabs}/Embeded", Order = 4)]
-		[xwcs.core.ui.datalayout.attributes.PolymorphFlag()]
-		public object Bab_Ext { get; set; } = new bab_ext();
+		[xwcs.core.ui.datalayout.attributes.PolymorphFlag(Kind = xwcs.core.ui.datalayout.attributes.PolymorphKind.XmlSerialization, SourcePropertyName = "text")]
+		public object Bab_Ext { get; set; } = null; // new bab_ext_1();
+
+
+		/*
+
+		[//System.ComponentModel.ReadOnly(true),
+		 Display(Name = "Bab_Ext_str", GroupName = "{tabs}/XML_STR"), DataType(DataType.MultilineText)]
+		public string Bab_Ext_str { get; set; }
+		/*
+			get
+			{
+				//obtain serialized version of Bab_Ext
+				if(Bab_Ext != null) {
+					return Bab_Ext.DumpToTypedXml();
+				}
+				return "";
+			}
+			set {
+				// this will de-serialize
+				Bab_Ext = value.CreateObjectFromTypedXml();
+				
+			}
+		}
+		*/	
 	}
 
 

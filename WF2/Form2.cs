@@ -18,6 +18,8 @@ namespace WF2
 		test1Entities ctx;
 		test1Entities1 ctx1;
 
+		xwcs.core.ui.datalayout.DataLayoutBindingSource bs;
+
 		public Form2()
 		{
 
@@ -29,8 +31,9 @@ namespace WF2
 			ctx = new test1Entities();
 			ctx1 = new test1Entities1();
 
+			
 
-			ctx.Database.Log = Console.Write;
+			ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug; // Console.Write;
 
 			
 			gridControl1.DataSourceChanged += (s, e) =>
@@ -44,8 +47,14 @@ namespace WF2
 			gridControl1.DataSource = bsg;
 			
 
-			xwcs.core.ui.datalayout.DataLayoutBindingSource bs = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
-			//bs.DataSource = ctx.bab.Where(s => s.id == 100).ToList();
+			bs = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
+			bs.DataSource = ctx.bab.Where(s => s.id == 100).ToList();
+			//bs.AddNew();
+			//set something to Current
+			//bs.SetProperty("Bab_Ext", new bab_ext_1());
+			//(bs.Current as bab).Bab_Ext_str = "WF2.bab_ext_1\n<?xml version=\"1.0\" encoding=\"utf-16\" ?><bab_ext_1 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><n_rpa>ffffff</n_rpa><n_cc>ddddd</n_cc><n_dxp>aaaaaaaa</n_dxp></bab_ext_1>";
+			//bs.SetProperty("Bab_Ext_str", "WF2.bab_ext_1\n<?xml version=\"1.0\" encoding=\"utf-16\" ?><bab_ext_1 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><n_rpa>ffffff</n_rpa><n_cc>ddddd</n_cc><n_dxp>aaaaaaaa</n_dxp></bab_ext_1>");
+			//bs.SetProperty("Bab_Ext_str", "WF2.bab_ext\n<?xml version=\"1.0\" encoding=\"utf-16\" ?><bab_ext xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><n_rpa>ffffff</n_rpa><n_cc>ddddd</n_cc><n_dxp>aaaaaaaa</n_dxp></bab_ext>");
 
 			bs.GetFieldQueryable += (sender, d) =>
 			{
@@ -57,44 +66,19 @@ namespace WF2
 				}
 			};
 
-			/*
-			DevExpress.XtraDataLayout.DataLayoutControlExt dlc = new DevExpress.XtraDataLayout.DataLayoutControlExt();
-			dlc.Dock = DockStyle.Fill;
-			splitContainerControl1.Panel2.Controls.Add(dlc);
-			//xwcs.core.ui.datalayout.DataLayoutExtender de = new xwcs.core.ui.datalayout.DataLayoutExtender(dlc);
-			*/
-
-			bs.DataLayout = dataLayoutControl1;
-			//dataLayoutControl1.AllowGeneratingNestedGroups = DevExpress.Utils.DefaultBoolean.True;
-
-			/*
-			PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(typeof(bab));
-			ChainingPropertyDescriptor tdd = (ChainingPropertyDescriptor)pdc["Bab_Ext"];
-			if (tdd != null)
-			{
-				tdd.ForcedPropertyType = typeof(bab_ext); // ((bab)bs.Current).Bab_Ext.GetType();
-			}
-			*/
-
-			//dataLayoutControl1.DataSource = bs;
-
-			//bs.AddNew();
+			bs.DataLayout = dataLayoutControl1;			
+			
 
 
+		}
 
+		private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+		{
+			object snapShot = bs.Current;
 
-			/*
-			PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(typeof(bab));
-            ChainingPropertyDescriptor tdd = (ChainingPropertyDescriptor)pdc["Bab_Ext"];
-			if (tdd != null)
-			{
-				tdd.ForcedPropertyType = typeof(bab_ext); // ((bab)bs.Current).Bab_Ext.GetType();
-			}
-			*/
-			bs.DataSource = ctx.bab.Where(s => s.id == 100).ToList();
+			ctx.SaveChanges();
+
 			bs.DataSource = ctx.bab.Where(s => s.id == 200).ToList();
-
-
-		}		
+		}
 	}
 }
