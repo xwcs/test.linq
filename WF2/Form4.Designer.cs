@@ -1,6 +1,6 @@
 ﻿namespace WF2
 {
-	partial class Form2
+	partial class Form4
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,6 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
+			this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
 			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
@@ -40,28 +43,66 @@
 			this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
+			this.splitContainerControl1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
 			this.SuspendLayout();
 			// 
+			// splitContainerControl1
+			// 
+			this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainerControl1.Horizontal = false;
+			this.splitContainerControl1.Location = new System.Drawing.Point(0, 51);
+			this.splitContainerControl1.Name = "splitContainerControl1";
+			this.splitContainerControl1.Panel1.Controls.Add(this.gridControl1);
+			this.splitContainerControl1.Panel1.Text = "Panel1";
+			this.splitContainerControl1.Panel2.Controls.Add(this.dataLayoutControl1);
+			this.splitContainerControl1.Panel2.Text = "Panel2";
+			this.splitContainerControl1.Size = new System.Drawing.Size(706, 421);
+			this.splitContainerControl1.SplitterPosition = 244;
+			this.splitContainerControl1.TabIndex = 1;
+			this.splitContainerControl1.Text = "splitContainerControl1";
+			// 
+			// gridControl1
+			// 
+			this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.gridControl1.Location = new System.Drawing.Point(0, 0);
+			this.gridControl1.MainView = this.gridView1;
+			this.gridControl1.Name = "gridControl1";
+			this.gridControl1.Size = new System.Drawing.Size(706, 244);
+			this.gridControl1.TabIndex = 0;
+			this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+			// 
+			// gridView1
+			// 
+			this.gridView1.GridControl = this.gridControl1;
+			this.gridView1.Name = "gridView1";
+			// 
 			// dataLayoutControl1
 			// 
 			this.dataLayoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataLayoutControl1.Location = new System.Drawing.Point(0, 51);
+			this.dataLayoutControl1.Location = new System.Drawing.Point(0, 0);
 			this.dataLayoutControl1.Name = "dataLayoutControl1";
 			this.dataLayoutControl1.Root = this.layoutControlGroup1;
-			this.dataLayoutControl1.Size = new System.Drawing.Size(706, 421);
+			this.dataLayoutControl1.Size = new System.Drawing.Size(706, 172);
 			this.dataLayoutControl1.TabIndex = 0;
 			this.dataLayoutControl1.Text = "dataLayoutControl1";
+			this.dataLayoutControl1.Enter += new System.EventHandler(this.dataLayoutControl1_Enter);
 			// 
 			// layoutControlGroup1
 			// 
+			this.layoutControlGroup1.CustomHeaderButtons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraEditors.ButtonsPanelControl.GroupBoxButton()});
 			this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
 			this.layoutControlGroup1.GroupBordersVisible = false;
 			this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlGroup1.Name = "layoutControlGroup1";
-			this.layoutControlGroup1.Size = new System.Drawing.Size(706, 421);
+			this.layoutControlGroup1.Size = new System.Drawing.Size(706, 172);
 			this.layoutControlGroup1.TextVisible = false;
 			// 
 			// barManager1
@@ -104,7 +145,7 @@
 			// 
 			// barButtonItem1
 			// 
-			this.barButtonItem1.Caption = "go";
+			this.barButtonItem1.Caption = "Save";
 			this.barButtonItem1.Id = 0;
 			this.barButtonItem1.Name = "barButtonItem1";
 			this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
@@ -149,18 +190,22 @@
 			this.barDockControlRight.Location = new System.Drawing.Point(706, 51);
 			this.barDockControlRight.Size = new System.Drawing.Size(0, 421);
 			// 
-			// Form2
+			// Form4
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(706, 495);
-			this.Controls.Add(this.dataLayoutControl1);
+			this.Controls.Add(this.splitContainerControl1);
 			this.Controls.Add(this.barDockControlLeft);
 			this.Controls.Add(this.barDockControlRight);
 			this.Controls.Add(this.barDockControlBottom);
 			this.Controls.Add(this.barDockControlTop);
-			this.Name = "Form2";
-			this.Text = "Form2";
+			this.Name = "Form4";
+			this.Text = "Form4";
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
+			this.splitContainerControl1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
@@ -170,6 +215,9 @@
 		}
 
 		#endregion
+		private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
+		private DevExpress.XtraGrid.GridControl gridControl1;
+		private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
 		private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl1;
 		private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
 		private DevExpress.XtraBars.BarManager barManager1;

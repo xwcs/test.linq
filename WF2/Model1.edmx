@@ -16,6 +16,7 @@
           <Property Name="rpa" Type="varchar" MaxLength="256" />
           <Property Name="cc" Type="varchar" MaxLength="256" />
           <Property Name="dxp" Type="varchar" MaxLength="256" />
+          <Property Name="content" Type="longtext" />
           <Property Name="ndoc" Type="int" Nullable="false" />
           <Property Name="xml" Type="longtext" />
           <Property Name="extra" Type="text" />
@@ -60,31 +61,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="test1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="test1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="bab" EntityType="test1Model.bab" />
           <EntitySet Name="bab_local" EntityType="test1Model.bab_local" />
+          <EntitySet Name="ban" EntityType="test1Model.ban" />
+          <EntitySet Name="bar_data" EntityType="test1Model.bar_data" />
+          <EntitySet Name="bab" EntityType="test1Model.bab" />
           <AssociationSet Name="bab_localbab" Association="test1Model.bab_localbab">
             <End Role="bab_local" EntitySet="bab_local" />
             <End Role="bab" EntitySet="bab" />
           </AssociationSet>
-          <EntitySet Name="ban" EntityType="test1Model.ban" />
-          <EntitySet Name="bar_data" EntityType="test1Model.bar_data" />
         </EntityContainer>
-        <EntityType Name="bab">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="random" Type="Int32" Nullable="false" />
-          <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="rpa" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="cc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="ndoc" Type="Int32" Nullable="false" />
-          <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="bab_local" Relationship="test1Model.bab_localbab" FromRole="bab" ToRole="bab_local" />
-        </EntityType>
         <EntityType Name="bab_local">
           <Key>
             <PropertyRef Name="id" />
@@ -93,18 +78,6 @@
           <Property Name="random" Type="Int32" Nullable="false" />
           <NavigationProperty Name="bab" Relationship="test1Model.bab_localbab" FromRole="bab_local" ToRole="bab" />
         </EntityType>
-        <Association Name="bab_localbab">
-          <End Type="test1Model.bab_local" Role="bab_local" Multiplicity="1" />
-          <End Type="test1Model.bab" Role="bab" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="bab">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="bab_local">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ban">
           <Key>
             <PropertyRef Name="id" />
@@ -127,28 +100,41 @@
           <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="bab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="random" Type="Int32" Nullable="false" />
+          <Property Name="dictionary" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="rpa" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="cc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ndoc" Type="Int32" Nullable="false" />
+          <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bab_local" Relationship="test1Model.bab_localbab" FromRole="bab" ToRole="bab_local" />
+        </EntityType>
+        <Association Name="bab_localbab">
+          <End Type="test1Model.bab_local" Role="bab_local" Multiplicity="1" />
+          <End Type="test1Model.bab" Role="bab" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="bab_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bab">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="test1ModelStoreContainer" CdmEntityContainer="test1Entities">
-          <EntitySetMapping Name="bab">
-            <EntityTypeMapping TypeName="test1Model.bab">
-              <MappingFragment StoreEntitySet="bab">
-                <ScalarProperty Name="extra" ColumnName="extra" />
-                <ScalarProperty Name="xml" ColumnName="xml" />
-                <ScalarProperty Name="ndoc" ColumnName="ndoc" />
-                <ScalarProperty Name="dxp" ColumnName="dxp" />
-                <ScalarProperty Name="cc" ColumnName="cc" />
-                <ScalarProperty Name="rpa" ColumnName="rpa" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="dictionary" ColumnName="dictionary" />
-                <ScalarProperty Name="random" ColumnName="random" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="bab_local">
             <EntityTypeMapping TypeName="test1Model.bab_local">
               <MappingFragment StoreEntitySet="bab_local">
@@ -177,6 +163,23 @@
               <MappingFragment StoreEntitySet="bar_data">
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="dictionary" ColumnName="dictionary" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bab">
+            <EntityTypeMapping TypeName="test1Model.bab">
+              <MappingFragment StoreEntitySet="bab">
+                <ScalarProperty Name="extra" ColumnName="extra" />
+                <ScalarProperty Name="xml" ColumnName="xml" />
+                <ScalarProperty Name="ndoc" ColumnName="ndoc" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="dxp" ColumnName="dxp" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="rpa" ColumnName="rpa" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dictionary" ColumnName="dictionary" />
+                <ScalarProperty Name="random" ColumnName="random" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

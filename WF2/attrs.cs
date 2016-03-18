@@ -94,6 +94,9 @@ namespace WF2
 		[Display(AutoGenerateField = false)]
 		public string extra { get; set; }
 
+		[Display(Name = "Content", GroupName = MG_Parole), DataType(DataType.MultilineText)]
+		public string content { get; set; }
+
 		[Display(AutoGenerateField = false)]
 		public bab_local bab_local { get; set; }
 	}
@@ -135,7 +138,7 @@ namespace WF2
 
 		[System.ComponentModel.DataAnnotations.Schema.NotMapped]
 		[Display(Name = "Embeded", GroupName = "{tabs}/Embeded", Order = 4)]
-		[xwcs.core.ui.datalayout.attributes.PolymorphFlag(Kind = xwcs.core.ui.datalayout.attributes.PolymorphKind.XmlSerialization, SourcePropertyName = "text")]
+		[xwcs.core.ui.datalayout.attributes.PolymorphFlag(Kind = xwcs.core.ui.datalayout.attributes.PolymorphKind.XmlSerialization, SourcePropertyName = "content")]
 		public object Bab_Ext { get; set; } = null; // new bab_ext_1();
 
 
@@ -177,4 +180,13 @@ namespace WF2
 		[Display(Name = "Parole", GroupName = "{tabs}")]
 		public string dictionary { get; set; }
 	}
+
+	public class GridRow
+	{
+		public int ndoc { get; set; }
+		public int id { get; set; }
+		public int random { get; set; }
+		public string dict { get; set; }
+	}
+
 }

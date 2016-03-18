@@ -21,6 +21,7 @@ namespace WF2
         public string rpa { get; set; }
         public string cc { get; set; }
         public string dxp { get; set; }
+        public string content { get; set; }
         public int ndoc { get; set; }
         public string xml { get; set; }
         public string extra { get; set; }
