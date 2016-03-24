@@ -15,7 +15,10 @@ namespace WF2
     public partial class bab
     {
         public int id { get; set; }
-        public int random { get; set; }
+        public int random { 
+		get; 
+		set; 
+		}
         public string dictionary { get; set; }
         public string text { get; set; }
         public string rpa { get; set; }

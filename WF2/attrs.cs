@@ -106,7 +106,10 @@ namespace WF2
 
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
 		[Display(Name = "N_RPA", GroupName = "n")]
-		public string n_rpa { get; set; }
+		public string n_rpa { 
+			get; 
+			set; 
+		}
 		[Display(Name = "N_CC", GroupName = "n"), Required()]
 		public string n_cc { get; set; }
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
@@ -141,6 +144,9 @@ namespace WF2
 		[xwcs.core.ui.datalayout.attributes.PolymorphFlag(Kind = xwcs.core.ui.datalayout.attributes.PolymorphKind.XmlSerialization, SourcePropertyName = "content")]
 		public object Bab_Ext { get; set; } = null; // new bab_ext_1();
 
+		public bab() {
+			//this.P
+		}
 
 		/*
 
@@ -188,5 +194,22 @@ namespace WF2
 		public int random { get; set; }
 		public string dict { get; set; }
 	}
+
+
+
+	namespace db {
+		[XmlInclude(typeof(TestObj))]
+		public class XmlMorphable
+		{
+
+		}
+
+		public class TestObj // : XmlMorphable
+		{
+			public string name { get; set; }
+			public int qty { get; set; }
+		}		
+	}
+	
 
 }

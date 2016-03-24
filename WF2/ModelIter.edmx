@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="niterModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="labels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipolabel_tipo" Type="varchar" MaxLength="16" />
+          <Property Name="value" Type="varchar" MaxLength="24" />
+          <Property Name="main" Type="bool" />
+          <Property Name="iter_id" Type="int" Nullable="false" />
+          <Property Name="rowversion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="niterModelStoreContainer">
+          <EntitySet Name="labels" EntityType="Self.labels" Schema="niter" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="niterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="niterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="labels" EntityType="niterModel.labels" />
+        </EntityContainer>
+        <EntityType Name="labels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipolabel_tipo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="main" Type="Boolean" />
+          <Property Name="iter_id" Type="Int32" Nullable="false" />
+          <Property Name="rowversion" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="niterModelStoreContainer" CdmEntityContainer="niterEntities">
+          <EntitySetMapping Name="labels">
+            <EntityTypeMapping TypeName="niterModel.labels">
+              <MappingFragment StoreEntitySet="labels">
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+                <ScalarProperty Name="iter_id" ColumnName="iter_id" />
+                <ScalarProperty Name="main" ColumnName="main" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="tipolabel_tipo" ColumnName="tipolabel_tipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
