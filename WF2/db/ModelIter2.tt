@@ -1,0 +1,6 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
+ output extension=".cs"#><#
+const string inputFile = @"ModelIter2.edmx";
+#>
+<#@ include file="EF6.Model.Replace.ttinclude"#> 

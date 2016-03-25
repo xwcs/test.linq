@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="db.ef.niter.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="labels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipolabel_tipo" Type="varchar" MaxLength="16" />
+          <Property Name="value" Type="varchar" MaxLength="24" />
+          <Property Name="main" Type="bool" />
+          <Property Name="iter_id" Type="int" Nullable="false" />
+          <Property Name="rowversion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msg" Type="text" />
+          <Property Name="kind" Type="int" />
+          <Property Name="when" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tipolabel">
+          <Key>
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="tipo" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="rowversion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_labels_labelTypes1">
+          <End Role="tipolabel" Type="Self.tipolabel" Multiplicity="0..1" />
+          <End Role="labels" Type="Self.labels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipolabel">
+              <PropertyRef Name="tipo" />
+            </Principal>
+            <Dependent Role="labels">
+              <PropertyRef Name="tipolabel_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbefniterStoreContainer">
+          <EntitySet Name="labels" EntityType="Self.labels" Schema="niter" store:Type="Tables" />
+          <EntitySet Name="log" EntityType="Self.log" Schema="niter" store:Type="Tables" />
+          <EntitySet Name="tipolabel" EntityType="Self.tipolabel" Schema="niter" store:Type="Tables" />
+          <AssociationSet Name="fk_labels_labelTypes1" Association="Self.fk_labels_labelTypes1">
+            <End Role="tipolabel" EntitySet="tipolabel" />
+            <End Role="labels" EntitySet="labels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db.ef.niter" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="NiterEntities2" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="labels" EntityType="db.ef.niter.labels" />
+          <EntitySet Name="tipolabel" EntityType="db.ef.niter.tipolabel" />
+          <AssociationSet Name="fk_labels_labelTypes1" Association="db.ef.niter.fk_labels_labelTypes1">
+            <End Role="tipolabel" EntitySet="tipolabel" />
+            <End Role="labels" EntitySet="labels" />
+          </AssociationSet>
+          <EntitySet Name="log" EntityType="db.ef.niter.log" />
+        </EntityContainer>
+        <EntityType Name="labels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipolabel_tipo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="main" Type="Boolean" />
+          <Property Name="iter_id" Type="Int32" Nullable="false" />
+          <Property Name="rowversion" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="tipolabel" Relationship="db.ef.niter.fk_labels_labelTypes1" FromRole="labels" ToRole="tipolabel" />
+        </EntityType>
+        <EntityType Name="tipolabel">
+          <Key>
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="rowversion" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="labels" Relationship="db.ef.niter.fk_labels_labelTypes1" FromRole="tipolabel" ToRole="labels" />
+        </EntityType>
+        <Association Name="fk_labels_labelTypes1">
+          <End Type="db.ef.niter.tipolabel" Role="tipolabel" Multiplicity="0..1" />
+          <End Type="db.ef.niter.labels" Role="labels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipolabel">
+              <PropertyRef Name="tipo" />
+            </Principal>
+            <Dependent Role="labels">
+              <PropertyRef Name="tipolabel_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msg" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="kind" Type="Int32" />
+          <Property Name="when" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbefniterStoreContainer" CdmEntityContainer="NiterEntities2" >
+          <EntitySetMapping Name="labels">
+            <EntityTypeMapping TypeName="db.ef.niter.labels">
+              <MappingFragment StoreEntitySet="labels">
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+                <ScalarProperty Name="iter_id" ColumnName="iter_id" />
+                <ScalarProperty Name="main" ColumnName="main" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="tipolabel_tipo" ColumnName="tipolabel_tipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipolabel">
+            <EntityTypeMapping TypeName="db.ef.niter.tipolabel">
+              <MappingFragment StoreEntitySet="tipolabel">
+                <ScalarProperty Name="rowversion" ColumnName="rowversion" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="log">
+            <EntityTypeMapping TypeName="db.ef.niter.log">
+              <MappingFragment StoreEntitySet="log">
+                <ScalarProperty Name="when" ColumnName="when" />
+                <ScalarProperty Name="kind" ColumnName="kind" />
+                <ScalarProperty Name="msg" ColumnName="msg" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

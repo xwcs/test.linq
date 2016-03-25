@@ -21,10 +21,11 @@ namespace WF2
 
 		
 
-		niterEntities ctx;
-		niterEntities ctxRow;
+		db.NiterEntities2 ctx;
+		db.NiterEntities2 ctxRow;
 
 		xwcs.core.ui.datalayout.DataLayoutBindingSource bsg;
+		xwcs.core.ui.datalayout.DataLayoutBindingSource bsg1;
 		EntityInstantFeedbackSource eifs;
 
 		int currentRowId = -1 ;
@@ -35,8 +36,11 @@ namespace WF2
 
 			InitializeComponent();
 
-			ctxRow = new niterEntities();
+			ctxRow = new db.NiterEntities2();
 			ctxRow.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug;
+
+			ctx = new db.NiterEntities2();
+			ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug;
 
 			gridControl1.DataSourceChanged += (sender, e) =>
 			{
@@ -47,18 +51,21 @@ namespace WF2
 			bsg = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
 			bsg.DataLayout = dataLayoutControl1;
 
+			bsg1 = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
+			bsg1.DataSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select o).ToList();
+
 			eifs = new EntityInstantFeedbackSource();
 			eifs.GetQueryable += (object s, GetQueryableEventArgs e) => {
-				ctx = new niterEntities();
+				ctx = new db.NiterEntities2();
 				ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug; // Console.Write;
-				e.QueryableSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select o);
+				e.QueryableSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select (db.labels)o);
                 e.Tag = ctx;
 			};
 			eifs.DismissQueryable += (s,e) => {
-				((niterEntities)e.Tag).Dispose();
+				((db.NiterEntities2)e.Tag).Dispose();
 			};
-			
-			gridControl1.DataSource = eifs;
+
+			gridControl1.DataSource = bsg1; // eifs;
 			(gridControl1.MainView as DevExpress.XtraGrid.Views.Grid.GridView).FocusedRowChanged += (sender, evt) =>
 			{
 				if (gridView1.IsAsyncInProgress) return;
@@ -66,12 +73,12 @@ namespace WF2
 				{
 
 					object row = gridView1.GetRow(gridView1.FocusedRowHandle);
-					labels b = null;
+					db.labels b = null;
 					if (row is DevExpress.Data.NotLoadedObject) return;
 					if (row is DevExpress.Data.Async.Helpers.ReadonlyThreadSafeProxyForObjectFromAnotherThread)
 					{
 						currentObj = ((DevExpress.Data.Async.Helpers.ReadonlyThreadSafeProxyForObjectFromAnotherThread)row).OriginalRow;
-						b = (labels)currentObj;
+						b = (db.labels)currentObj;
 					}
 					if (b != null)
 					{
@@ -103,7 +110,7 @@ namespace WF2
 					ctxRow.SaveChanges();
 					(ctxRow as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, bsg.Current);// ctxRow.labels.Where(s => s.id == currentRowId));
 					(ctx as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, currentObj); // ctx.labels.Where(s => s.id == currentRowId));
-					//eifs.Refresh();
+					eifs.Refresh();
 					//bsg.DataSource = ctxRow.labels.Where(s => s.id == currentRowId).ToList();
 				}
 				catch (DbUpdateConcurrencyException ex)
@@ -115,14 +122,14 @@ namespace WF2
 					// as instances of the entity type 
 					var entry = ex.Entries.Single();
 					var databaseValues = entry.GetDatabaseValues();
-					var databaseValuesAsLabels = (labels)databaseValues.ToObject();
+					var databaseValuesAsLabels = (db.labels)databaseValues.ToObject();
 
 					// Choose an initial set of resolved values. In this case we 
 					// make the default be the values currently in the database. 
-					var resolvedValuesAsLabels = (labels)databaseValues.ToObject();
+					var resolvedValuesAsLabels = (db.labels)databaseValues.ToObject();
 
 					// Have the user choose what the resolved values should be 
-					HaveUserResolveConcurrency((labels)entry.Entity,
+					HaveUserResolveConcurrency((db.labels)entry.Entity,
 											   databaseValuesAsLabels,
 											   resolvedValuesAsLabels);
 
@@ -148,9 +155,9 @@ namespace WF2
 			
 		}
 
-		public void HaveUserResolveConcurrency(labels entity,
-									   labels databaseValues,
-									   labels resolvedValues)
+		public void HaveUserResolveConcurrency(db.labels entity,
+									   db.labels databaseValues,
+									   db.labels resolvedValues)
 		{
 			resolvedValues = databaseValues;
 			// Show the current, database, and resolved values to the user and have 
