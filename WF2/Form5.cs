@@ -68,6 +68,13 @@ namespace WF2
 			gridControl1.DataSource = bsg1; // eifs;
 			(gridControl1.MainView as DevExpress.XtraGrid.Views.Grid.GridView).FocusedRowChanged += (sender, evt) =>
 			{
+				if((bsg1.Current as db.labels) != null) {
+					if((bsg1.Current as db.labels).id != currentRowId) {
+						currentRowId = (bsg1.Current as db.labels).id;
+						bsg.DataSource = ctxRow.labels.Where(s => s.id == currentRowId).ToList();
+						Console.WriteLine("Current row:" + currentRowId);
+					}		
+				}else
 				if (gridView1.IsAsyncInProgress) return;
 				try
 				{
@@ -109,7 +116,7 @@ namespace WF2
 				{
 					ctxRow.SaveChanges();
 					(ctxRow as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, bsg.Current);// ctxRow.labels.Where(s => s.id == currentRowId));
-					(ctx as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, currentObj); // ctx.labels.Where(s => s.id == currentRowId));
+					(ctx as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, bsg1.Current); // currentObj); // ctx.labels.Where(s => s.id == currentRowId));
 					eifs.Refresh();
 					//bsg.DataSource = ctxRow.labels.Where(s => s.id == currentRowId).ToList();
 				}

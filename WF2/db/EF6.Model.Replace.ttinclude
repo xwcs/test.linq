@@ -1,5 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
-<#
+﻿<#
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -114,10 +113,18 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 /* meta.cs */
 foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
 {
-    fileManager.StartNewFile(entity.Name + ".meta.cs");
-    BeginNamespace(code);
+	var path = System.IO.Path.GetDirectoryName(this.Host.TemplateFile);
+	path = System.IO.Path.Combine(path, entity.Name + ".meta.cs");
+
+	fileManager.StartNewFile(entity.Name + ".meta.cs");	
+	
+	// now only create the file, if it does not exist yet
+    if (!System.IO.File.Exists(path)) 
+	{
+		
+		BeginNamespace(code);
 #>
-<#="/*"#>
+
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
 // This class is just for meta attributes editing
 // Do not write any logic here, it will be not considered
@@ -126,22 +133,37 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#=codeStringGenerator.EntityClassOpeningMeta(entity)#>
 {
 <#
-    var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
-    var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
-    var complexProperties = typeMapper.GetComplexProperties(entity);
+		var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
+		var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
+		var complexProperties = typeMapper.GetComplexProperties(entity);
 
    
 
-    var simpleProperties = typeMapper.GetSimpleProperties(entity);
-    if (simpleProperties.Any())
-    {
-        foreach (var edmProperty in simpleProperties)
-        {
+		var simpleProperties = typeMapper.GetSimpleProperties(entity);
+		if (simpleProperties.Any())
+		{
+			foreach (var edmProperty in simpleProperties)
+			{
 #>
     <#=codeStringGenerator.PropertyMeta(edmProperty)#>
 <#
-        }
-    }
+			}
+		}
+
+		var navigationProperties = typeMapper.GetNavigationProperties(entity);
+		if (navigationProperties.Any())
+		{
+#>
+
+<#
+			foreach (var navigationProperty in navigationProperties)
+			{
+#>
+	[Display(AutoGenerateField=false)]
+    <#=codeStringGenerator.NavigationProperty(navigationProperty)#>
+<#
+			}
+		}
 #>
 }
 
@@ -160,9 +182,21 @@ public partial class <#=code.Escape(entity)#>
 	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]
 	//public object some_field_object { get; set; } = null;
 }
-<#="*/"#>
+
 <#
-    EndNamespace(code);
+		EndNamespace(code);
+
+	}else{
+		//file exists so read it from disk
+		 IEnumerable<string> readText = File.ReadLines(path);
+		 bool starting = true;
+		 foreach(string line in readText){
+			if(!(starting && (line.Length == 0 || (line.Length > 0 && line[0] == '/')))){
+				starting = false; //first correct line comments remain good
+				#><#=line + "\r\n"#><#
+			}
+		 }
+	} // end IF file exists
 }
 
 foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollection))
@@ -355,15 +389,15 @@ public class CodeStringGenerator
 	{
 		return string.Format(
 			CultureInfo.InvariantCulture,
-			"[Display(Name=\"{5}\"{6})]\r\n"+
+			"[Display({5}{6})]\r\n"+
 			"\t{0} {1} {2} {{ {3}get; {4}set;}}\r\n",
 			Accessibility.ForProperty(edmProperty),
 			_typeMapper.GetTypeName(edmProperty.TypeUsage),
 			_code.Escape(edmProperty),
 			_code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
 			_code.SpaceAfter(Accessibility.ForSetter(edmProperty)),
-			Char.ToUpperInvariant(_code.Escape(edmProperty)[0]) + _code.Escape(edmProperty).Substring(1),
-			_code.Escape(edmProperty) == "rowversion" ? ", AutoGenerateField=false" : ""
+			_code.Escape(edmProperty) != "rowversion" ? "Name=\"" + Char.ToUpperInvariant(_code.Escape(edmProperty)[0]) + _code.Escape(edmProperty).Substring(1) + "\"" : "",
+			_code.Escape(edmProperty) == "rowversion" ? "AutoGenerateField=false" : ""
 		);
 	}
 

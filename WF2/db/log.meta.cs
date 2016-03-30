@@ -9,7 +9,7 @@
 
 namespace WF2.db
 {
-    /*
+    
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -51,5 +51,5 @@ namespace WF2.db
     	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]
     	//public object some_field_object { get; set; } = null;
     }
-    */
+    
 }

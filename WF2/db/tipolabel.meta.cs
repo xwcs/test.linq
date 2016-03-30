@@ -9,7 +9,7 @@
 
 namespace WF2.db
 {
-    /*
+    
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -25,9 +25,12 @@ namespace WF2.db
         [Display(Name="Tipo")]
     	public string tipo { get; set;}
     
-        [Display(Name="Rowversion", AutoGenerateField=false)]
+        [Display(AutoGenerateField=false)]
     	public int rowversion { get; set;}
     
+    
+    	[Display(AutoGenerateField=false)]
+        public virtual ICollection<labels> labels { get; set; }
     }
     
     
@@ -45,5 +48,5 @@ namespace WF2.db
     	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]
     	//public object some_field_object { get; set; } = null;
     }
-    */
+    
 }
