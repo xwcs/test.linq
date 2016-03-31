@@ -7,33 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.model1
 {
     
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
     // This class is just for meta attributes editing
     // Do not write any logic here, it will be not considered
     // Copy this class somewhere else this one will be overridden!!!
     
-    public class log_meta
+    public class bab_local_meta
     {
         [Display(Name="Id")]
-    	public int id { get; set;}
+    		public int id { get; set;}
     
-        [Display(Name="Msg")]
-    	public string msg { get; set;}
+        [Display(Name="Random")]
+    		public int random { get; set;}
     
-        [Display(Name="Kind")]
-    	public Nullable<int> kind { get; set;}
     
-        [Display(Name="When")]
-    	public Nullable<System.DateTime> when { get; set;}
-    
+    	[Display(AutoGenerateField=false)]
+        public virtual bab bab { get; set; }
     }
     
     
@@ -44,8 +42,8 @@ namespace WF2.db
     // copy this class to some other place
     // changes in this place will be overridden !!!
     
-    [MetadataType(typeof(log_meta))]
-    public partial class log
+    [MetadataType(typeof(bab_local_meta))]
+    public partial class bab_local
     {
     	// example of de-serialized polymorph filed
     	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]

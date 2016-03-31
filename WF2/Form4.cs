@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Repository;
-using Hyper.ComponentModel;
 using DevExpress.Utils;
+using WF2.db.model1;
 
 namespace WF2
 {
@@ -22,7 +22,7 @@ namespace WF2
 		test1Entities1 ctx1;
 
 		BindingSource bsg;
-		xwcs.core.ui.datalayout.DataLayoutBindingSource bs;
+		xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab> bs;
 
 		int currentRowId = -1;
 
@@ -58,7 +58,7 @@ namespace WF2
 
 
 			bsg = new BindingSource();
-			bs = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
+			bs = new xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab>();
 			bs.DataLayout = dataLayoutControl1;
 
 			dataLayoutControl1.GotFocus += (sender, evt) => {

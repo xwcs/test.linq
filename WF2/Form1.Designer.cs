@@ -248,7 +248,7 @@
 			// 
 			// bindingSource1
 			// 
-			this.bindingSource1.DataSource = typeof(WF2.bab);
+			this.bindingSource1.DataSource = typeof(WF2.db.model1.bab);
 			// 
 			// Form1
 			// 

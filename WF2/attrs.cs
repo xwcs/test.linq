@@ -55,6 +55,7 @@ namespace WF2
 		
 	}
 
+	/*
 
 	public class bab_meta
 	{
@@ -106,10 +107,7 @@ namespace WF2
 
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
 		[Display(Name = "N_RPA", GroupName = "n")]
-		public string n_rpa { 
-			get; 
-			set; 
-		}
+		public string n_rpa { get; set; }
 		[Display(Name = "N_CC", GroupName = "n"), Required()]
 		public string n_cc { get; set; }
 		[xwcs.core.ui.datalayout.attributes.Style(BackgrounColor = greenColor)]
@@ -168,11 +166,11 @@ namespace WF2
 				
 			}
 		}
-		*/	
+		* /	
 	}
 
 
-
+*/
 
 	public partial class bab_view_data
 	{
@@ -195,7 +193,7 @@ namespace WF2
 		public string dict { get; set; }
 	}
 
-
+	
 
 	namespace db {
 		[XmlInclude(typeof(TestObj))]

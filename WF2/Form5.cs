@@ -8,8 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors.Repository;
-using Hyper.ComponentModel;
 using DevExpress.Utils;
 using DevExpress.Data.Linq;
 using System.Data.Entity.Infrastructure;
@@ -21,11 +19,11 @@ namespace WF2
 
 		
 
-		db.NiterEntities2 ctx;
-		db.NiterEntities2 ctxRow;
+		db.Iter.NiterEntities2 ctx;
+		db.Iter.NiterEntities2 ctxRow;
 
-		xwcs.core.ui.datalayout.DataLayoutBindingSource bsg;
-		xwcs.core.ui.datalayout.DataLayoutBindingSource bsg1;
+		xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels> bsg;
+		xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels> bsg1;
 		EntityInstantFeedbackSource eifs;
 
 		int currentRowId = -1 ;
@@ -36,10 +34,10 @@ namespace WF2
 
 			InitializeComponent();
 
-			ctxRow = new db.NiterEntities2();
+			ctxRow = new db.Iter.NiterEntities2();
 			ctxRow.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug;
 
-			ctx = new db.NiterEntities2();
+			ctx = new db.Iter.NiterEntities2();
 			ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug;
 
 			gridControl1.DataSourceChanged += (sender, e) =>
@@ -48,29 +46,29 @@ namespace WF2
 				(gridControl1.MainView as DevExpress.XtraGrid.Views.Grid.GridView).BestFitColumns();
 			};
 
-			bsg = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
+			bsg = new xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels>();
 			bsg.DataLayout = dataLayoutControl1;
 
-			bsg1 = new xwcs.core.ui.datalayout.DataLayoutBindingSource();
+			bsg1 = new xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels>();
 			bsg1.DataSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select o).ToList();
 
 			eifs = new EntityInstantFeedbackSource();
 			eifs.GetQueryable += (object s, GetQueryableEventArgs e) => {
-				ctx = new db.NiterEntities2();
+				ctx = new db.Iter.NiterEntities2();
 				ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug; // Console.Write;
-				e.QueryableSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select (db.labels)o);
+				e.QueryableSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select (db.Iter.labels)o);
                 e.Tag = ctx;
 			};
 			eifs.DismissQueryable += (s,e) => {
-				((db.NiterEntities2)e.Tag).Dispose();
+				((db.Iter.NiterEntities2)e.Tag).Dispose();
 			};
 
 			gridControl1.DataSource = bsg1; // eifs;
 			(gridControl1.MainView as DevExpress.XtraGrid.Views.Grid.GridView).FocusedRowChanged += (sender, evt) =>
 			{
-				if((bsg1.Current as db.labels) != null) {
-					if((bsg1.Current as db.labels).id != currentRowId) {
-						currentRowId = (bsg1.Current as db.labels).id;
+				if((bsg1.Current as db.Iter.labels) != null) {
+					if((bsg1.Current as db.Iter.labels).id != currentRowId) {
+						currentRowId = (bsg1.Current as db.Iter.labels).id;
 						bsg.DataSource = ctxRow.labels.Where(s => s.id == currentRowId).ToList();
 						Console.WriteLine("Current row:" + currentRowId);
 					}		
@@ -80,12 +78,12 @@ namespace WF2
 				{
 
 					object row = gridView1.GetRow(gridView1.FocusedRowHandle);
-					db.labels b = null;
+					db.Iter.labels b = null;
 					if (row is DevExpress.Data.NotLoadedObject) return;
 					if (row is DevExpress.Data.Async.Helpers.ReadonlyThreadSafeProxyForObjectFromAnotherThread)
 					{
 						currentObj = ((DevExpress.Data.Async.Helpers.ReadonlyThreadSafeProxyForObjectFromAnotherThread)row).OriginalRow;
-						b = (db.labels)currentObj;
+						b = (db.Iter.labels)currentObj;
 					}
 					if (b != null)
 					{
@@ -129,14 +127,14 @@ namespace WF2
 					// as instances of the entity type 
 					var entry = ex.Entries.Single();
 					var databaseValues = entry.GetDatabaseValues();
-					var databaseValuesAsLabels = (db.labels)databaseValues.ToObject();
+					var databaseValuesAsLabels = (db.Iter.labels)databaseValues.ToObject();
 
 					// Choose an initial set of resolved values. In this case we 
 					// make the default be the values currently in the database. 
-					var resolvedValuesAsLabels = (db.labels)databaseValues.ToObject();
+					var resolvedValuesAsLabels = (db.Iter.labels)databaseValues.ToObject();
 
 					// Have the user choose what the resolved values should be 
-					HaveUserResolveConcurrency((db.labels)entry.Entity,
+					HaveUserResolveConcurrency((db.Iter.labels)entry.Entity,
 											   databaseValuesAsLabels,
 											   resolvedValuesAsLabels);
 
@@ -162,9 +160,9 @@ namespace WF2
 			
 		}
 
-		public void HaveUserResolveConcurrency(db.labels entity,
-									   db.labels databaseValues,
-									   db.labels resolvedValues)
+		public void HaveUserResolveConcurrency(db.Iter.labels entity,
+									   db.Iter.labels databaseValues,
+									   db.Iter.labels resolvedValues)
 		{
 			resolvedValues = databaseValues;
 			// Show the current, database, and resolved values to the user and have 

@@ -7,30 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.model1
 {
     
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
     // This class is just for meta attributes editing
     // Do not write any logic here, it will be not considered
     // Copy this class somewhere else this one will be overridden!!!
     
-    public class tipolabel_meta
+    public class bar_data_meta
     {
-        [Display(Name="Tipo")]
-    	public string tipo { get; set;}
+        [Display(Name="Id")]
+    		public int id { get; set;}
     
-        [Display(AutoGenerateField=false)]
-    	public int rowversion { get; set;}
+        [Display(Name="Dictionary")]
+    		public string dictionary { get; set;}
     
+        [Display(Name="Text")]
+    		public string text { get; set;}
     
-    	[Display(AutoGenerateField=false)]
-        public virtual ICollection<labels> labels { get; set; }
     }
     
     
@@ -41,8 +42,8 @@ namespace WF2.db
     // copy this class to some other place
     // changes in this place will be overridden !!!
     
-    [MetadataType(typeof(tipolabel_meta))]
-    public partial class tipolabel
+    [MetadataType(typeof(bar_data_meta))]
+    public partial class bar_data
     {
     	// example of de-serialized polymorph filed
     	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]

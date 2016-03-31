@@ -7,38 +7,48 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.Iter
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
-    public partial class tipolabel : EntityBase
+    public partial class log : EntityBase<log>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tipolabel()
+        public log() : base()
         {
-            this.labels = new HashSet<labels>();
         }
     
-        private string _tipo;
-    	public string tipo 
+        private int _id;
+    	public int id 
     	{ 
-    		get { return _tipo; } 
-    		set { SetProperty(ref _tipo, value); } 
+    		get { return _id; } 
+    		set { SetProperty(ref _id, value); } 
     	}
     
-        private int _rowversion;
-    	public int rowversion 
+        private string _msg;
+    	public string msg 
     	{ 
-    		get { return _rowversion; } 
-    		set { SetProperty(ref _rowversion, value); } 
+    		get { return _msg; } 
+    		set { SetProperty(ref _msg, value); } 
     	}
     
+        private Nullable<int> _kind;
+    	public Nullable<int> kind 
+    	{ 
+    		get { return _kind; } 
+    		set { SetProperty(ref _kind, value); } 
+    	}
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<labels> labels { get; set; }
+        private Nullable<System.DateTime> _when;
+    	public Nullable<System.DateTime> when 
+    	{ 
+    		get { return _when; } 
+    		set { SetProperty(ref _when, value); } 
+    	}
+    
     }
 }

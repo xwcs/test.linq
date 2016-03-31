@@ -7,16 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.model1
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
-    public partial class log : EntityBase
+    public partial class bab_local : EntityBase<bab_local>
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public bab_local() : base()
+        {
+        }
+    
         private int _id;
     	public int id 
     	{ 
@@ -24,26 +30,15 @@ namespace WF2.db
     		set { SetProperty(ref _id, value); } 
     	}
     
-        private string _msg;
-    	public string msg 
+        private int _random;
+    	public int random 
     	{ 
-    		get { return _msg; } 
-    		set { SetProperty(ref _msg, value); } 
+    		get { return _random; } 
+    		set { SetProperty(ref _random, value); } 
     	}
     
-        private Nullable<int> _kind;
-    	public Nullable<int> kind 
-    	{ 
-    		get { return _kind; } 
-    		set { SetProperty(ref _kind, value); } 
-    	}
     
-        private Nullable<System.DateTime> _when;
-    	public Nullable<System.DateTime> when 
-    	{ 
-    		get { return _when; } 
-    		set { SetProperty(ref _when, value); } 
-    	}
     
+        public virtual bab bab { get; set; }
     }
 }

@@ -26,6 +26,6 @@ namespace WF2
         }
     
         public virtual DbSet<names> names { get; set; }
-        public virtual DbSet<ban> ban { get; set; }
+        public virtual DbSet<db.model1.ban> ban { get; set; }
     }
 }

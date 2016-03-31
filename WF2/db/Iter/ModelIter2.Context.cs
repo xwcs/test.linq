@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.Iter
 {
     using System;
     using System.Data.Entity;

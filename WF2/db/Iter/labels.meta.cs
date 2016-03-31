@@ -7,14 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.Iter
 {
     
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
     // This class is just for meta attributes editing
     // Do not write any logic here, it will be not considered
@@ -23,21 +23,22 @@ namespace WF2.db
     public class labels_meta
     {
         [Display(Name="Id")]
-    	public int id { get; set;}
+    		public int id { get; set;}
     
         [Display(Name="Tipolabel_tipo")]
-    	public string tipolabel_tipo { get; set;}
+    		public string tipolabel_tipo { get; set;}
     
         [Display(Name="Value")]
-    	public string value { get; set;}
+    		public string value { get; set;}
     
         [Display(Name="Main")]
-    	public Nullable<bool> main { get; set;}
+    		public Nullable<bool> main { get; set;}
     
         [Display(Name="Iter_id")]
-    	public int iter_id { get; set;}
+    		public int iter_id { get; set;}
     
         [Display(AutoGenerateField=false)]
+    	[ConcurrencyCheck]
     	public int rowversion { get; set;}
     
     

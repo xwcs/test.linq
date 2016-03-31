@@ -1,8 +1,8 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
-<#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
- output extension=".cs"#>
- <#const string inputFile = @"$edmxInputFile$";#>
+<#@ include file="EF6.Utility.CS.ttinclude"#>
+<#@ output extension=".cs"#>
 <#
+const string inputFile = @"ModelIter2.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -590,7 +590,7 @@ public class CodeStringGenerator
                 "{0}using System;{1}" +
                 "{2}" +
 				"using System.ComponentModel.DataAnnotations;\r\n"+
-				"using xwcs.core.db;\r\nusing xwcs.core.ui.datalayout.attributes;{2}",
+				"using xwcs.core.db;\r\nusing xwcs.core.db.binding.attributes;{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
                 inHeader ? "" : Environment.NewLine)

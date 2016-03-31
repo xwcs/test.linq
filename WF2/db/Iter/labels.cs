@@ -7,16 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WF2.db
+namespace WF2.db.Iter
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using xwcs.core.db;
-    using xwcs.core.ui.datalayout.attributes;
+    using xwcs.core.db.binding.attributes;
     
-    public partial class labels : EntityBase
+    public partial class labels : EntityBase<labels>
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public labels() : base()
+        {
+        }
+    
         private int _id;
     	public int id 
     	{ 

@@ -16,7 +16,7 @@
           <Property Name="rpa" Type="varchar" MaxLength="256" />
           <Property Name="cc" Type="varchar" MaxLength="256" />
           <Property Name="dxp" Type="varchar" MaxLength="256" />
-          <Property Name="content" Type="longtext" />
+          <Property Name="content_dump_xml" Type="longtext" />
           <Property Name="ndoc" Type="int" Nullable="false" />
           <Property Name="xml" Type="longtext" />
           <Property Name="extra" Type="text" />
@@ -111,11 +111,11 @@
           <Property Name="rpa" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="cc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="dxp" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="content" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="ndoc" Type="Int32" Nullable="false" />
           <Property Name="xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="extra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="bab_local" Relationship="test1Model.bab_localbab" FromRole="bab" ToRole="bab_local" />
+          <Property Name="content_dump_xml" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="bab_localbab">
           <End Type="test1Model.bab_local" Role="bab_local" Multiplicity="1" />
@@ -170,10 +170,10 @@
           <EntitySetMapping Name="bab">
             <EntityTypeMapping TypeName="test1Model.bab">
               <MappingFragment StoreEntitySet="bab">
+                <ScalarProperty Name="content_dump_xml" ColumnName="content_dump_xml" />
                 <ScalarProperty Name="extra" ColumnName="extra" />
                 <ScalarProperty Name="xml" ColumnName="xml" />
                 <ScalarProperty Name="ndoc" ColumnName="ndoc" />
-                <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="dxp" ColumnName="dxp" />
                 <ScalarProperty Name="cc" ColumnName="cc" />
                 <ScalarProperty Name="rpa" ColumnName="rpa" />
@@ -201,7 +201,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
