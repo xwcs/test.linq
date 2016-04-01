@@ -12,16 +12,18 @@ namespace WF2.db.Iter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
-    public partial class tipolabel : EntityBase<tipolabel>
+    public partial class tipolabel : EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tipolabel() : base()
+        public tipolabel()
         {
             this.labels = new HashSet<labels>();
-        }
+    
+    	}
     
         private string _tipo;
     	public string tipo 
@@ -36,6 +38,7 @@ namespace WF2.db.Iter
     		get { return _rowversion; } 
     		set { SetProperty(ref _rowversion, value); } 
     	}
+    
     
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

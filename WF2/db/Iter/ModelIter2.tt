@@ -3,6 +3,7 @@
 <#@ output extension=".cs"#>
 <#
 const string inputFile = @"ModelIter2.edmx";
+
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -22,23 +23,47 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 {
     fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
+
+	var serializedProperties = typeMapper.GetSimpleProperties(entity);
+	int serializedCount = 0;
+	foreach (var edmProperty in serializedProperties)
+    {
+		string fName = code.Escape(edmProperty);	
+		if(fName.EndsWith("_dump_xml")){
+			++serializedCount;
+		}
+    }
+
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
-<#=codeStringGenerator.EntityClassOpening(entity)#>
+<#=codeStringGenerator.EntityClassOpening(entity, serializedCount > 0)#>
 {
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
     var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
     var complexProperties = typeMapper.GetComplexProperties(entity);
+	
 
 	//we need default ctr anyway
     //if (propertiesWithDefaultValues.Any() || collectionNavigationProperties.Any() || complexProperties.Any())
     //{
 #>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public <#=code.Escape(entity)#>() : base()
+    public <#=code.Escape(entity)#>()
     {
 <#
+		if(serializedCount > 0){
+			foreach (var edmProperty in serializedProperties)
+			{
+				string fName = code.Escape(edmProperty);	
+				if(fName.EndsWith("_dump_xml")){
+					#>
+<#="\t\t"#>_serializedFileds.Add(<#="_" + Char.ToLowerInvariant(fName[0]) + fName.Substring(1)#>);<#="\r\n"#>
+					<#
+				}
+			}			
+		}
+
         foreach (var edmProperty in propertiesWithDefaultValues)
         {
 #>
@@ -60,7 +85,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#
         }
 #>
-    }
+<#="\r\n\t}"#>
 
 <#
     //}
@@ -88,7 +113,9 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#
         }
     }
-
+#>
+<#=codeStringGenerator.GetSerialization()#>
+<#
     var navigationProperties = typeMapper.GetNavigationProperties(entity);
     if (navigationProperties.Any())
     {
@@ -361,6 +388,10 @@ public class CodeStringGenerator
     private readonly TypeMapper _typeMapper;
     private readonly MetadataTools _ef;
 
+	private List<string> _serialized = new List<string>();
+
+	
+
     public CodeStringGenerator(CodeGenerationTools code, TypeMapper typeMapper, MetadataTools ef)
     {
         ArgumentNotNull(code, "code");
@@ -372,36 +403,63 @@ public class CodeStringGenerator
         _ef = ef;
     }
 
+	public string GetSerialization(){
+		
+		if(_serialized.Count > 0){
+			string ret = "\tpublic override void DeserializeFields(){\r\n\t\tobject o;\r\n";
+			string ret1 = "\tpublic override void SerializeFields(){\r\n\t\tstring s;\r\n";
+			foreach(string s in _serialized){
+				ret += string.Format("\t\to = {0}_obj;\r\n", s);
+				ret1 += string.Format("\t\ts = {0};\r\n", s);
+			}
+
+			//reset used fileds
+			_serialized.Clear();
+			return string.Format("{0}\r\n\t}} \r\n {1} \r\n\t}}", ret, ret1);
+		}		
+		return "";
+	}
+
     public string Property(EdmProperty edmProperty)
 	{
 		// here we decide what to do
 		// it is not performance wise to use getter as function if we need
 		// just few fields with effective deserialisation
 		// so we decide convention, all serialized content must have field name
-		// suffix "_dump" example : <field>_dump
+		// suffix "_dump_xml" example : <field>_dump_xml
 		// so we can apply deserialisation routine just for this field
-		// we will create also its complex brother
-		string suffix = "_dump";
+		// we will create also its complex brother with more one suffix "_obj"
+		
+		string suffix = "_dump_xml";
 		string fName = _code.Escape(edmProperty);
 		if(fName.EndsWith(suffix)){
-			string brotherName = fName.Substring(0, fName.Length - suffix.Length);
+			string fType = _typeMapper.GetTypeName(edmProperty.TypeUsage);
+
+			if(fType != "string"){
+				return string.Format("Field {0} must be a string!", fName);
+			}
+			string brotherName = fName + "_obj";
+
+			//save for later
+			_serialized.Add(fName);
 
 			return string.Format(
 			CultureInfo.InvariantCulture,
 			"private {1} {3};\r\n"+
 			"\t{0} {1} {2} \r\n" +
 			"\t{{ \r\n" +
-				"\t\t{4}get {{ return GetDumpedProperty(ref {3}, ref {6}); }} \r\n" +
-				"\t\t{5}set {{ SetDumpedProperty(ref {3}, value, ref {6}); }} \r\n" + 
+				"\t\t{4}get {{ return SerializeAndGet({6}, ref {3}); }} \r\n" +
+				"\t\t{5}set {{ SetProperty(ref {3}, value); }} \r\n" + 
 			"\t}}\r\n\r\n" + 
-			"\tprivate object {6};\r\n"+
+			"\tprivate object {6} = null;\r\n"+
+			"\t[NotMapped]\r\n"+
 			"\t{0} object {7} \r\n" +
 			"\t{{ \r\n" +
-				"\t\t{4}get {{ return {6}; }} \r\n" +
+				"\t\t{4}get {{ return GetOrDeserialize({3}, \"{2}\", ref {6}); }} \r\n" +
 				"\t\t{5}set {{ SetProperty(ref {6}, value); }} \r\n" + 
 			"\t}}\r\n",
 			Accessibility.ForProperty(edmProperty),
-			_typeMapper.GetTypeName(edmProperty.TypeUsage),
+			fType,
 			fName,
 			"_" + Char.ToLowerInvariant(fName[0]) + fName.Substring(1),
 			_code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
@@ -429,20 +487,51 @@ public class CodeStringGenerator
 
 	public string PropertyMeta(EdmProperty edmProperty)
 	{
-		return string.Format(
-			CultureInfo.InvariantCulture,
-			"[Display({5}{6})]\r\n"+
-			"\t{7}"+ 
-			"\t{0} {1} {2} {{ {3}get; {4}set;}}\r\n",
-			Accessibility.ForProperty(edmProperty),
-			_typeMapper.GetTypeName(edmProperty.TypeUsage),
-			_code.Escape(edmProperty),
-			_code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
-			_code.SpaceAfter(Accessibility.ForSetter(edmProperty)),
-			_code.Escape(edmProperty) != "rowversion" ? "Name=\"" + Char.ToUpperInvariant(_code.Escape(edmProperty)[0]) + _code.Escape(edmProperty).Substring(1) + "\"" : "",
-			_code.Escape(edmProperty) == "rowversion" ? "AutoGenerateField=false" : "",
-			_code.Escape(edmProperty) == "rowversion" ? "[ConcurrencyCheck]\r\n" : ""
-		);
+		string suffix = "_dump_xml";
+		string fName = _code.Escape(edmProperty);
+		if(fName.EndsWith(suffix)){
+			string fType = _typeMapper.GetTypeName(edmProperty.TypeUsage);
+
+			if(fType != "string"){
+				return string.Format("Field {0} must be a string!", fName);
+			}
+			string brotherName = fName + "_obj";
+
+				return string.Format(
+				CultureInfo.InvariantCulture,
+				"[Display({5}{6})]\r\n"+
+				"\t{0} {1} {2} {{ {3}get; {4}set;}}\r\n"+
+				"\r\n\t"+
+				"[Display({7})]\r\n"+
+				"\t{0} object {8} {{ {3}get; {4}set;}}\r\n",
+				Accessibility.ForProperty(edmProperty),
+				_typeMapper.GetTypeName(edmProperty.TypeUsage),
+				_code.Escape(edmProperty),
+				_code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
+				_code.SpaceAfter(Accessibility.ForSetter(edmProperty)),
+				"Name=\"" + Char.ToUpperInvariant(_code.Escape(edmProperty)[0]) + _code.Escape(edmProperty).Substring(1) + "\"",
+				", AutoGenerateField=false",
+				"Name=\"" + Char.ToUpperInvariant(brotherName[0]) + brotherName.Substring(1) + "\"",
+				brotherName
+			);
+		}else{
+
+
+			return string.Format(
+				CultureInfo.InvariantCulture,
+				"[Display({5}{6})]\r\n"+
+				"{7}"+ 
+				"\t{0} {1} {2} {{ {3}get; {4}set;}}\r\n",
+				Accessibility.ForProperty(edmProperty),
+				_typeMapper.GetTypeName(edmProperty.TypeUsage),
+				_code.Escape(edmProperty),
+				_code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
+				_code.SpaceAfter(Accessibility.ForSetter(edmProperty)),
+				_code.Escape(edmProperty) != "rowversion" ? "Name=\"" + Char.ToUpperInvariant(_code.Escape(edmProperty)[0]) + _code.Escape(edmProperty).Substring(1) + "\"" : "",
+				_code.Escape(edmProperty) == "rowversion" ? "AutoGenerateField=false" : "",
+				_code.Escape(edmProperty) == "rowversion" ? "\t[ConcurrencyCheck]\r\n" : ""
+			);
+		}
 	}
 
     public string NavigationProperty(NavigationProperty navProp)
@@ -463,7 +552,7 @@ public class CodeStringGenerator
         return accessibility + (accessibility != "private" ? " virtual" : "");
     }
     
-    public string EntityClassOpening(EntityType entity)
+    public string EntityClassOpening(EntityType entity, bool serialized = false)
     {
          return string.Format(
 			CultureInfo.InvariantCulture,
@@ -471,7 +560,7 @@ public class CodeStringGenerator
 			Accessibility.ForType(entity),
 			_code.SpaceAfter(_code.AbstractOption(entity)),
 			_code.Escape(entity),
-			_code.StringBefore(" : ", string.IsNullOrEmpty(_typeMapper.GetTypeName(entity.BaseType)) ? "EntityBase<"+_code.Escape(entity)+">" : _typeMapper.GetTypeName(entity.BaseType)));
+			_code.StringBefore(" : ", string.IsNullOrEmpty(_typeMapper.GetTypeName(entity.BaseType)) ? (serialized ? "Serialized" : "" ) + "EntityBase" : _typeMapper.GetTypeName(entity.BaseType)));
     }
 	
 	public string EntityClassOpeningMeta(EntityType entity) 
@@ -590,6 +679,7 @@ public class CodeStringGenerator
                 "{0}using System;{1}" +
                 "{2}" +
 				"using System.ComponentModel.DataAnnotations;\r\n"+
+				"using System.ComponentModel.DataAnnotations.Schema;\r\n"+
 				"using xwcs.core.db;\r\nusing xwcs.core.db.binding.attributes;{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
@@ -809,6 +899,13 @@ public class TypeMapper
         {
             return ((EntityContainer)item).Name;
         }
+    }
+
+	public IEnumerable<EdmProperty> GetSerializedProperties(EntityType type)
+    {
+        return type.Properties.Where(p => p.TypeUsage.EdmType is SimpleType && p.DeclaringType == type
+			&& GetGlobalItemName(p.TypeUsage.EdmType).EndsWith("_dump_xml")
+		);
     }
 
     public IEnumerable<EdmProperty> GetSimpleProperties(EntityType type)

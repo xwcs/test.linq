@@ -16,14 +16,15 @@ namespace WF2.db.model1
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
-    public partial class ban : EntityBase<ban>
+    public partial class ban : EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ban() : base()
+        public ban()
         {
-        }
     
-        private int _id;
+    	}
+    
+    	    private int _id;
     	public int id 
     	{ 
     		get { return _id; } 

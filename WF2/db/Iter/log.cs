@@ -12,15 +12,17 @@ namespace WF2.db.Iter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
-    public partial class log : EntityBase<log>
+    public partial class log : EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public log() : base()
+        public log()
         {
-        }
+    
+    	}
     
         private int _id;
     	public int id 
@@ -49,6 +51,7 @@ namespace WF2.db.Iter
     		get { return _when; } 
     		set { SetProperty(ref _when, value); } 
     	}
+    
     
     }
 }

@@ -62,7 +62,6 @@ namespace WF2
 			bs.DataLayout = dataLayoutControl1;
 
 			dataLayoutControl1.GotFocus += (sender, evt) => {
-				int i = 0;
 			};
 
 			bsg.DataSource = (from o in ctx.bab_local where (o.bab.extra != null || o.bab.extra.CompareTo("[xml,/bab/dictionary]=scor*") == 0) select new GridRow { ndoc = o.bab.ndoc, id = o.id, random = o.random, dict = o.bab.dictionary }).ToList();
@@ -114,7 +113,6 @@ namespace WF2
 
 		private void dataLayoutControl1_Enter(object sender, EventArgs e)
 		{
-			int i = 0;
 		}
 	}
 }

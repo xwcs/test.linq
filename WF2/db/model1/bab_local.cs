@@ -16,14 +16,15 @@ namespace WF2.db.model1
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
-    public partial class bab_local : EntityBase<bab_local>
+    public partial class bab_local : EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public bab_local() : base()
+        public bab_local()
         {
-        }
     
-        private int _id;
+    	}
+    
+    	    private int _id;
     	public int id 
     	{ 
     		get { return _id; } 

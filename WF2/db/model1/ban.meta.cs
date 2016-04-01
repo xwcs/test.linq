@@ -24,31 +24,31 @@ namespace WF2.db.model1
     public class ban_meta
     {
         [Display(Name="Id")]
-    		public int id { get; set;}
+    	public int id { get; set;}
     
         [Display(Name="Random")]
-    		public int random { get; set;}
+    	public int random { get; set;}
     
         [Display(Name="Dictionary")]
-    		public string dictionary { get; set;}
+    	public string dictionary { get; set;}
     
         [Display(Name="Text")]
-    		public string text { get; set;}
+    	public string text { get; set;}
     
         [Display(Name="Cc")]
-    		public string cc { get; set;}
+    	public string cc { get; set;}
     
         [Display(Name="Dxp")]
-    		public string dxp { get; set;}
+    	public string dxp { get; set;}
     
         [Display(Name="Ndoc")]
-    		public Nullable<int> ndoc { get; set;}
+    	public Nullable<int> ndoc { get; set;}
     
         [Display(Name="Xml")]
-    		public string xml { get; set;}
+    	public string xml { get; set;}
     
         [Display(Name="Extra")]
-    		public string extra { get; set;}
+    	public string extra { get; set;}
     
     }
     

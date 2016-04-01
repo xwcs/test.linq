@@ -13,6 +13,7 @@ namespace WF2.db.Iter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
@@ -23,19 +24,19 @@ namespace WF2.db.Iter
     public class labels_meta
     {
         [Display(Name="Id")]
-    		public int id { get; set;}
+    	public int id { get; set;}
     
         [Display(Name="Tipolabel_tipo")]
-    		public string tipolabel_tipo { get; set;}
+    	public string tipolabel_tipo { get; set;}
     
         [Display(Name="Value")]
-    		public string value { get; set;}
+    	public string value { get; set;}
     
         [Display(Name="Main")]
-    		public Nullable<bool> main { get; set;}
+    	public Nullable<bool> main { get; set;}
     
         [Display(Name="Iter_id")]
-    		public int iter_id { get; set;}
+    	public int iter_id { get; set;}
     
         [Display(AutoGenerateField=false)]
     	[ConcurrencyCheck]

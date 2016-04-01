@@ -13,6 +13,7 @@ namespace WF2.db.Iter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
@@ -23,16 +24,16 @@ namespace WF2.db.Iter
     public class log_meta
     {
         [Display(Name="Id")]
-    		public int id { get; set;}
+    	public int id { get; set;}
     
         [Display(Name="Msg")]
-    		public string msg { get; set;}
+    	public string msg { get; set;}
     
         [Display(Name="Kind")]
-    		public Nullable<int> kind { get; set;}
+    	public Nullable<int> kind { get; set;}
     
         [Display(Name="When")]
-    		public Nullable<System.DateTime> when { get; set;}
+    	public Nullable<System.DateTime> when { get; set;}
     
     }
     

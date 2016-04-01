@@ -13,6 +13,7 @@ namespace WF2.db.Iter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
@@ -23,7 +24,7 @@ namespace WF2.db.Iter
     public class tipolabel_meta
     {
         [Display(Name="Tipo")]
-    		public string tipo { get; set;}
+    	public string tipo { get; set;}
     
         [Display(AutoGenerateField=false)]
     	[ConcurrencyCheck]

@@ -16,12 +16,26 @@ namespace WF2.db.model1
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
     
-    public partial class bab : EntityBase<bab>
+    public partial class bab : SerializedEntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public bab() : base()
+        public bab()
         {
-        }
+    
+    	}
+    
+    	public override int GetTypeHash() {
+    		int ret = 5381;
+    		Type t;
+    					
+    		t = _content_dump_xml_obj != null ? _content_dump_xml_obj.GetType() : typeof(object);
+    		ret = ((ret << 5) + ret) ^ t.GetHashCode();
+    		RegisterType(t);
+    					
+    		return ret;
+    	}	
+    	
+    
     
         private int _id;
     	public int id 
