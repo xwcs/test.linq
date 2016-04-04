@@ -115,7 +115,7 @@ namespace WF2
 					ctxRow.SaveChanges();
 					(ctxRow as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, bsg.Current);// ctxRow.labels.Where(s => s.id == currentRowId));
 					(ctx as IObjectContextAdapter).ObjectContext.Refresh(System.Data.Entity.Core.Objects.RefreshMode.StoreWins, bsg1.Current); // currentObj); // ctx.labels.Where(s => s.id == currentRowId));
-					eifs.Refresh();
+					//eifs.Refresh();
 					//bsg.DataSource = ctxRow.labels.Where(s => s.id == currentRowId).ToList();
 				}
 				catch (DbUpdateConcurrencyException ex)

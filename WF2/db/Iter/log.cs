@@ -15,6 +15,7 @@ namespace WF2.db.Iter
     using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
+    using xwcs.core.db.model.attributes;
     
     public partial class log : EntityBase
     {
@@ -24,28 +25,28 @@ namespace WF2.db.Iter
     
     	}
     
-        private int _id;
+    		private int _id;
     	public int id 
     	{ 
     		get { return _id; } 
     		set { SetProperty(ref _id, value); } 
     	}
     
-        private string _msg;
+    	private string _msg;
     	public string msg 
     	{ 
     		get { return _msg; } 
     		set { SetProperty(ref _msg, value); } 
     	}
     
-        private Nullable<int> _kind;
+    	private Nullable<int> _kind;
     	public Nullable<int> kind 
     	{ 
     		get { return _kind; } 
     		set { SetProperty(ref _kind, value); } 
     	}
     
-        private Nullable<System.DateTime> _when;
+    	private Nullable<System.DateTime> _when;
     	public Nullable<System.DateTime> when 
     	{ 
     		get { return _when; } 

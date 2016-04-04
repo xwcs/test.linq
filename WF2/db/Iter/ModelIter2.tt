@@ -4,6 +4,7 @@
 <#
 const string inputFile = @"ModelIter2.edmx";
 
+
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -51,18 +52,8 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public <#=code.Escape(entity)#>()
     {
-<#
-		if(serializedCount > 0){
-			foreach (var edmProperty in serializedProperties)
-			{
-				string fName = code.Escape(edmProperty);	
-				if(fName.EndsWith("_dump_xml")){
-					#>
-<#="\t\t"#>_serializedFileds.Add(<#="_" + Char.ToLowerInvariant(fName[0]) + fName.Substring(1)#>);<#="\r\n"#>
-					<#
-				}
-			}			
-		}
+
+<#	
 
         foreach (var edmProperty in propertiesWithDefaultValues)
         {
@@ -85,10 +76,25 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#
         }
 #>
-<#="\r\n\t}"#>
+	}
 
-<#
-    //}
+	<#
+	if(serializedCount > 0){	
+	#>
+public override void GetMutablePropertiesType(Dictionary<string, Type> dest) {
+	<#	
+		foreach (var edmProperty in serializedProperties)
+		{
+			string fName = code.Escape(edmProperty);	
+			if(fName.EndsWith("_dump_xml")){
+				string oName = Char.ToLowerInvariant(fName[0]) + fName.Substring(1) + "_obj";
+				#><#=string.Format("\tdest.Add(\"{0}\", _{0} != null ? _{0}.GetType() : typeof(object));\r\n", oName)
+				#><#
+			}
+		}			
+	#><#="\r\n\t}\r\n"#><#
+	}	
+
 
     var simpleProperties = typeMapper.GetSimpleProperties(entity);
     if (simpleProperties.Any())
@@ -96,7 +102,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
         foreach (var edmProperty in simpleProperties)
         {
 #>
-    <#=codeStringGenerator.Property(edmProperty)#>
+	<#=codeStringGenerator.Property(edmProperty)#>
 <#
         }
     }
@@ -210,9 +216,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 [MetadataType(typeof(<#=code.Escape(entity)#>_meta))]
 public partial class <#=code.Escape(entity)#>
 {
-	// example of de-serialized polymorph filed
-	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]
-	//public object some_field_object { get; set; } = null;
+	// here add custom fields ...
 }
 
 <#
@@ -453,6 +457,7 @@ public class CodeStringGenerator
 			"\t}}\r\n\r\n" + 
 			"\tprivate object {6} = null;\r\n"+
 			"\t[NotMapped]\r\n"+
+			"\t[Mutable]\r\n"+
 			"\t{0} object {7} \r\n" +
 			"\t{{ \r\n" +
 				"\t\t{4}get {{ return GetOrDeserialize({3}, \"{2}\", ref {6}); }} \r\n" +
@@ -680,7 +685,9 @@ public class CodeStringGenerator
                 "{2}" +
 				"using System.ComponentModel.DataAnnotations;\r\n"+
 				"using System.ComponentModel.DataAnnotations.Schema;\r\n"+
-				"using xwcs.core.db;\r\nusing xwcs.core.db.binding.attributes;{2}",
+				"using xwcs.core.db;\r\n"+
+				"using xwcs.core.db.binding.attributes;\r\n"+
+				"using xwcs.core.db.model.attributes;{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
                 inHeader ? "" : Environment.NewLine)

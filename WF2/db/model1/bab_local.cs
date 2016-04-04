@@ -15,6 +15,7 @@ namespace WF2.db.model1
     using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
+    using xwcs.core.db.model.attributes;
     
     public partial class bab_local : EntityBase
     {

@@ -16,6 +16,7 @@ namespace WF2.db.Iter
     using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
+    using xwcs.core.db.model.attributes;
     
     // This class is just for meta attributes editing
     // Do not write any logic here, it will be not considered

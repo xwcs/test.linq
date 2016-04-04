@@ -12,6 +12,7 @@ namespace WF2.db.model1
     
     using System;
     using System.ComponentModel.DataAnnotations;
+	using xwcs.core.db;
     
     // This class is just for meta attributes editing
     // Do not write any logic here, it will be not considered
@@ -47,7 +48,7 @@ namespace WF2.db.model1
 		[Display(Name = "RPA", GroupName = Resp)]
 		public string rpa { get; set; }
 		[Display(Name = "CC", GroupName = Resp)]
-		[xwcs.core.db.binding.attributes.DbLookup(DisplayMember = "Name", ValueMember = "Name")]
+		[xwcs.core.db.binding.attributes.DbLookupAttribute(DisplayMember = "Name", ValueMember = "Name")]
 		public string cc { get; set; }
 		[Display(Name = "DXP", GroupName = Resp)]
 		public string dxp { get; set; }
@@ -69,7 +70,7 @@ namespace WF2.db.model1
     }
 
 
-	public class bab_ext
+	public class bab_ext : EntityBase
 	{
 		public const UInt32 greenColor = 0xff008000;
 
@@ -87,7 +88,7 @@ namespace WF2.db.model1
 	}
 
 
-	public class bab_ext_1
+	public class bab_ext_1 : EntityBase
 	{
 		public const UInt32 greenColor = 0xff008000;
 

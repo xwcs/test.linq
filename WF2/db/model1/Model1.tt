@@ -79,31 +79,19 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 	<#
 	if(serializedCount > 0){	
 	#>
-public override int GetTypeHash() {
-		int ret = 5381;
-		Type t;
-	<#
-		
+public override void GetMutablePropertiesType(Dictionary<string, Type> dest) {
+	<#	
 		foreach (var edmProperty in serializedProperties)
 		{
 			string fName = code.Escape(edmProperty);	
 			if(fName.EndsWith("_dump_xml")){
-				string oName = "_" + Char.ToLowerInvariant(fName[0]) + fName.Substring(1) + "_obj";
-				#>
-				<#=string.Format(
-					"\r\n\t\tt = {0} != null ? {0}.GetType() : typeof(object);\r\n\t\t"+
-					"ret = ((ret << 5) + ret) ^ t.GetHashCode();\r\n\t\t"+
-					"RegisterType(t);",
-					oName	
-				)#>
-				<#
+				string oName = Char.ToLowerInvariant(fName[0]) + fName.Substring(1) + "_obj";
+				#><#=string.Format("\tdest.Add(\"{0}\", _{0} != null ? _{0}.GetType() : typeof(object));\r\n", oName)
+				#><#
 			}
 		}			
-	#>
-	<#="\r\n\t\treturn ret;"#>
-	}	
-	<#="\r\n\r\n"#>
-<#
+	#><#="\r\n\t}"#>	
+	<#="\r\n\r\n"#><#
 	}	
 
 
@@ -470,6 +458,7 @@ public class CodeStringGenerator
 			"\t}}\r\n\r\n" + 
 			"\tprivate object {6} = null;\r\n"+
 			"\t[NotMapped]\r\n"+
+			"\t[Mutable]\r\n"+
 			"\t{0} object {7} \r\n" +
 			"\t{{ \r\n" +
 				"\t\t{4}get {{ return GetOrDeserialize({3}, \"{2}\", ref {6}); }} \r\n" +
@@ -697,7 +686,9 @@ public class CodeStringGenerator
                 "{2}" +
 				"using System.ComponentModel.DataAnnotations;\r\n"+
 				"using System.ComponentModel.DataAnnotations.Schema;\r\n"+
-				"using xwcs.core.db;\r\nusing xwcs.core.db.binding.attributes;{2}",
+				"using xwcs.core.db;\r\n"+
+				"using xwcs.core.db.binding.attributes;\r\n"+
+				"using xwcs.core.db.model.attributes;{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
                 inHeader ? "" : Environment.NewLine)

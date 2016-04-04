@@ -15,6 +15,7 @@ namespace WF2.db.model1
     using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
+    using xwcs.core.db.model.attributes;
     
     public partial class bab : SerializedEntityBase
     {
@@ -24,18 +25,11 @@ namespace WF2.db.model1
     
     	}
     
-    	public override int GetTypeHash() {
-    		int ret = 5381;
-    		Type t;
-    					
-    		t = _content_dump_xml_obj != null ? _content_dump_xml_obj.GetType() : typeof(object);
-    		ret = ((ret << 5) + ret) ^ t.GetHashCode();
-    		RegisterType(t);
-    					
-    		return ret;
+    	public override void GetMutablePropertiesType(Dictionary<string, Type> dest) {
+    		dest.Add("content_dump_xml_obj", _content_dump_xml_obj != null ? _content_dump_xml_obj.GetType() : typeof(object));
+    
     	}	
     	
-    
     
         private int _id;
     	public int id 
@@ -116,6 +110,7 @@ namespace WF2.db.model1
     
     	private object _content_dump_xml_obj = null;
     	[NotMapped]
+    	[Mutable]
     	public object content_dump_xml_obj 
     	{ 
     		get { return GetOrDeserialize(_content_dump_xml, "content_dump_xml", ref _content_dump_xml_obj); } 

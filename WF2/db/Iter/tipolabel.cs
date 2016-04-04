@@ -15,24 +15,25 @@ namespace WF2.db.Iter
     using System.ComponentModel.DataAnnotations.Schema;
     using xwcs.core.db;
     using xwcs.core.db.binding.attributes;
+    using xwcs.core.db.model.attributes;
     
     public partial class tipolabel : EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tipolabel()
         {
-            this.labels = new HashSet<labels>();
     
+            this.labels = new HashSet<labels>();
     	}
     
-        private string _tipo;
+    		private string _tipo;
     	public string tipo 
     	{ 
     		get { return _tipo; } 
     		set { SetProperty(ref _tipo, value); } 
     	}
     
-        private int _rowversion;
+    	private int _rowversion;
     	public int rowversion 
     	{ 
     		get { return _rowversion; } 
