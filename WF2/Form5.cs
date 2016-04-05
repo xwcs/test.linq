@@ -22,8 +22,8 @@ namespace WF2
 		db.Iter.NiterEntities2 ctx;
 		db.Iter.NiterEntities2 ctxRow;
 
-		xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels> bsg;
-		xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels> bsg1;
+		xwcs.core.db.binding.DataLayoutBindingSource bsg;
+		xwcs.core.db.binding.DataLayoutBindingSource bsg1;
 		EntityInstantFeedbackSource eifs;
 
 		int currentRowId = -1 ;
@@ -43,13 +43,14 @@ namespace WF2
 			gridControl1.DataSourceChanged += (sender, e) =>
 			{
 				gridControl1.MainView.PopulateColumns();
+				//gridControl1.MainView.Options = false;
 				(gridControl1.MainView as DevExpress.XtraGrid.Views.Grid.GridView).BestFitColumns();
 			};
 
-			bsg = new xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels>();
+			bsg = new xwcs.core.db.binding.DataLayoutBindingSource();
 			bsg.DataLayout = dataLayoutControl1;
 
-			bsg1 = new xwcs.core.db.binding.DataLayoutBindingSource<db.Iter.labels>();
+			bsg1 = new xwcs.core.db.binding.DataLayoutBindingSource();
 			bsg1.DataSource = (from o in ctx.labels where o.tipolabel_tipo == "classif" select o).ToList();
 
 			eifs = new EntityInstantFeedbackSource();

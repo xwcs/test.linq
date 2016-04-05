@@ -18,7 +18,7 @@ namespace WF2
 		test1Entities ctx;
 		test1Entities1 ctx1;
 
-		xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab> bs;
+		xwcs.core.db.binding.DataLayoutBindingSource bs;
 
 		public Form2()
 		{
@@ -33,7 +33,7 @@ namespace WF2
 			ctx.Database.Log = xwcs.core.manager.SLogManager.getInstance().Debug; // Console.Write;
 
 			
-			bs = new xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab>();
+			bs = new xwcs.core.db.binding.DataLayoutBindingSource();
 			bs.DataSource = ctx.bab.Where(s => s.id == 100).ToList();
 			
 

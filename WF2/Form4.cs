@@ -22,7 +22,7 @@ namespace WF2
 		test1Entities1 ctx1;
 
 		BindingSource bsg;
-		xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab> bs;
+		xwcs.core.db.binding.DataLayoutBindingSource bs;
 
 		int currentRowId = -1;
 
@@ -58,7 +58,7 @@ namespace WF2
 
 
 			bsg = new BindingSource();
-			bs = new xwcs.core.db.binding.DataLayoutBindingSource<db.model1.bab>();
+			bs = new xwcs.core.db.binding.DataLayoutBindingSource();
 			bs.DataLayout = dataLayoutControl1;
 
 			dataLayoutControl1.GotFocus += (sender, evt) => {
