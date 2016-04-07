@@ -6,11 +6,3 @@
 	path = xwcs.core.ui
 	url = https://github.com/xwcs/xwcs.core.ui.git
 	branch = master
-[submodule "HyperPropertyDescriptor"]
-	path = HyperPropertyDescriptor
-	url = https://github.com/xwcs/HyperPropertyDescriptor.git
-	branch = master
-[submodule "Pather.CSharp"]
-	path = Pather.CSharp
-	url = https://github.com/xwcs/Pather.CSharp.git
-	branch = master
