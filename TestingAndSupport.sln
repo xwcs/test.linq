@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WF2", "WF2\WF2.csproj", "{993AF207-D963-41EE-9270-588E09D41AD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingAndSupport", "TestingAndSupport\TestingAndSupport.csproj", "{993AF207-D963-41EE-9270-588E09D41AD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xwcs.core", "xwcs.core\xwcs.core.csproj", "{64DD06EA-E442-4101-99B5-351C6A160472}"
 EndProject
