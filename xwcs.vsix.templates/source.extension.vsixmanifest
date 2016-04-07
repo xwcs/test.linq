@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+	<Metadata>
+		<Identity Id="xwcs.vsix.templates.Ladislav Sopko.379c312a-f8d5-49b8-8b01-ade081e6219a" Version="1.0" Language="en-US" Publisher="Ladislav Sopko" />
+		<DisplayName>xwcs.vsix.templates</DisplayName>
+		<Description xml:space="preserve">3D T4 templates</Description>
+		<Icon>EF6.Custom.Entities.ico</Icon>
+	</Metadata>
+	<Installation>
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
+	</Installation>
+	<Dependencies>
+		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+	</Dependencies>
+	<Assets>
+		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.EF6" d:TargetPath="|xwcs.vsix.templates.EF6;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />
+		<Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="xwcs.vsix.wizards" d:VsixSubPath="assemblies" Path="|xwcs.vsix.wizards|" AssemblyName="|xwcs.vsix.wizards;AssemblyName|" />
+		<Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="Additional.pkgdef" />
+		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.StateMachine" d:TargetPath="|xwcs.vsix.templates.StateMachine;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />
+	</Assets>
+</PackageManifest>

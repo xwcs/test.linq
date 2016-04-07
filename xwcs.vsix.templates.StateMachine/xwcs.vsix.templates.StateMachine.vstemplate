@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>xwcs.vsix.templates.StateMachine</Name>
+    <Description>Generator of code for State machine</Description>
+    <Icon>xwcs.vsix.templates.StateMachine.ico</Icon>
+    <TemplateID>c1d5796c-302d-4d46-829a-8dde3e71cf1c</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.5</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>Machine.tt</DefaultName>
+  </TemplateData>
+	<TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Data</Assembly>
+			</Reference>
+		</References>
+		<ProjectItem OpenInEditor="false" TargetFileName="$fileinputname$.tt" ReplaceParameters="true">Model.Machine.tt</ProjectItem>
+	</TemplateContent>
+
+	<WizardExtension>
+		<Assembly>xwcs.vsix.wizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=850a705109d0c5e5</Assembly>
+		<FullClassName>xwcs.vsix.wizards.CustomWizard</FullClassName>
+	</WizardExtension>
+	<WizardData>
+		<data kind="TASTATE"/>
+	</WizardData>
+</VSTemplate>

@@ -206,6 +206,123 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\document\BozzaState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CheckListOkGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CheckListOkGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\ConsolidateTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\ConsolidatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CorrezioneState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CorrezioneVersionatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CreateBozzaGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CreateBozzaGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\CreateTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\DocumentState.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\DocumentStateTester.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="States\document\DupIsErasedGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\DupIsErasedGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\EndState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\EraseGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\EraseGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\HideTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\InvalidateTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\NotFallGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\NotFallGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\PubblicatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\PubblicatoVersionatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\PublishTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\RejectTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\RemoveTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\RevertTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\RtfInGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\RtfInGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\SaveTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\SetCopyNumberGuard.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\SetCopyNumberGuard.impl.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\SimpleFixTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\StartState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\ValidateTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\ValidatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\ValidatoVersionatoState.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States\document\VersionTriggers.cs">
+      <DependentUpon>DocumentState.tt</DependentUpon>
+    </Compile>
     <Compile Include="XtraForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,9 +367,6 @@
       <LastGenOutput>ModelIter2.Designer.cs</LastGenOutput>
       <CustomToolNamespace>db</CustomToolNamespace>
     </EntityDeploy>
-    <None Include="db\EF6.Model.Replace.ttinclude">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="db\Iter\ModelIter2.edmx.diagram">
       <DependentUpon>ModelIter2.edmx</DependentUpon>
     </None>
@@ -277,9 +391,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="States\StateDiagrams1.tastate" />
-    <None Include="States\StateDiagrams1.tastate.diagram">
-      <DependentUpon>StateDiagrams1.tastate</DependentUpon>
+    <None Include="States\document\DocumentStates.tastate" />
+    <None Include="States\document\DocumentStates.tastate.diagram">
+      <DependentUpon>DocumentStates.tastate</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +411,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelIter2.cs</LastGenOutput>
       <DependentUpon>ModelIter2.edmx</DependentUpon>
+      <FormatOutput>False</FormatOutput>
+      <Parameters>&lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
+&lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Parameters>
     </Content>
     <Content Include="db\model1\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -317,6 +434,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelxxxx.edmx</DependentUpon>
       <LastGenOutput>Modelxxxx.cs</LastGenOutput>
+    </Content>
+    <Content Include="States\document\DocumentState.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DocumentState.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

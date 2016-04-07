@@ -25,7 +25,7 @@ namespace WF2.db.Iter
     
     	}
     
-		private int _id;
+    		private int _id;
     	public int id 
     	{ 
     		get { return _id; } 

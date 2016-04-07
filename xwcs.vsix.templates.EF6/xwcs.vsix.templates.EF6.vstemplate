@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>xwcs.vsix.templates.EF6</Name>
+	  <Description>A project item to generate a strongly-typed DbContext class and persistence ignorant entity classes. Use this template when working with an EF 6.x release.</Description>
+    <Icon>xwcs.vsix.templates.EF6.ico</Icon>
+    <TemplateID>2cebe314-46dd-4522-8d4b-658ff04a4b5a</TemplateID>
+	  <ProjectType>CSharp</ProjectType>
+	  <RequiredFrameworkVersion>4.5</RequiredFrameworkVersion>
+	  <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+	  <DefaultName>Model.tt</DefaultName>
+  </TemplateData>
+	<TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Data</Assembly>
+			</Reference>
+		</References>
+		<ProjectItem OpenInEditor="false" TargetFileName="$fileinputname$.Context.tt" ReplaceParameters="true">EF6Model.Context.tt</ProjectItem>
+		<ProjectItem OpenInEditor="false" TargetFileName="$fileinputname$.tt" ReplaceParameters="true">EF6Model.Types.tt</ProjectItem>
+	</TemplateContent>
+
+	<WizardExtension>
+		<Assembly>xwcs.vsix.wizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=850a705109d0c5e5</Assembly>
+		<FullClassName>xwcs.vsix.wizards.CustomWizard</FullClassName>
+	</WizardExtension>
+	<WizardData>
+		<data kind="EDMX"/>
+	</WizardData>
+</VSTemplate>

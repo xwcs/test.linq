@@ -59,9 +59,7 @@ namespace WF2.db.Iter
     [MetadataType(typeof(labels_meta))]
     public partial class labels
     {
-    	// example of de-serialized polymorph filed
-    	//[PolymorphFlag(Kind = PolymorphKind.XmlSerialization, SourcePropertyName = "<some_field>")]
-    	//public object some_field_object { get; set; } = null;
+    	// here add custom fields ...
     }
     
 }

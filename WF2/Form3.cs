@@ -16,6 +16,20 @@ namespace WF2
 	public partial class Form3 : Form
 	{
 
+		[XmlRoot("data", Namespace = "http://schemas.microsoft.com/developer/vstemplate/2005")]
+		public class WizardData
+		{
+
+
+			/*
+			 * Allowed kinds:
+			 *		EDMX
+			 *		TASTATE
+			 */
+			[XmlElement("kind")]
+			public string Kind { get; set; }
+		}
+
 		public class XmlWriterExt : XmlWriter
 		{
 			private XmlWriter _root;
@@ -153,12 +167,23 @@ namespace WF2
 		}
 
 
+		private WizardData GetData(string str)
+		{
+			XmlSerializer des = new XmlSerializer(typeof(WizardData));
+			using (XmlReader reader = XmlReader.Create(new StringReader(str)))
+			{
+				return (WizardData)des.Deserialize(reader);
+			}
+		}
+
 
 		public Form3()
 		{
 			InitializeComponent();
-			
-			
+
+			string testXml = "<data xmlns=\"http://schemas.microsoft.com/developer/vstemplate/2005\"><kind>EDMX</kind></data>";
+
+			WizardData d = GetData(testXml);
 
 
 			string valXml = "";

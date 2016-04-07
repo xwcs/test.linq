@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stateGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" name="DocumentState" targetClass="Open" xmlns="http://www.tangiblearchitect.com/dsltools/State">
+  <ArrayOfStereoType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <StereoType>
+      <StereoTypeName>StateGraph</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.StateGraph</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>Synchronization</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.Synchronization</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>State</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.State</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>StartPoint</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.StartPoint</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>Flow</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.Flow</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>EndPoint</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.EndPoint</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>ConditionState</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.ConditionState</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+    <StereoType>
+      <StereoTypeName>Comment</StereoTypeName>
+      <BaseModelElementTypeFullName>tangible.Modelling.StateDiagrams.Comment</BaseModelElementTypeFullName>
+      <DefinedProperties />
+    </StereoType>
+  </ArrayOfStereoType>
+  <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+  <comments>
+    <comment Id="8bda6a47-5cfd-4da4-b5d4-a2e257cea3d0" text="In questo stato il record non esiste più, viene materialmente rimosso.">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <subjects>
+        <endPointMoniker name="/DocumentState/End" />
+      </subjects>
+    </comment>
+  </comments>
+  <flowElements>
+    <startPoint name="Start">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Create[SetCopyNumber]" eventAndGuardLabel="Create[SetCopyNumber]/" effectLabel="" eventGuardEffectLabel="Create[SetCopyNumber]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Bozza" />
+        </flow>
+      </flowTo>
+    </startPoint>
+    <state name="Bozza" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Consolidate[CheckListOk]" effect="NotifyValidators" eventAndGuardLabel="Consolidate[CheckListOk]/" effectLabel="NotifyValidators" eventGuardEffectLabel="Consolidate[CheckListOk]/NotifyValidators">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Consolidato" />
+        </flow>
+        <flow guard="Remove[Erase]" eventAndGuardLabel="Remove[Erase]/" effectLabel="" eventGuardEffectLabel="Remove[Erase]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <endPointMoniker name="/DocumentState/End" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="Consolidato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Reject" effect="RecordRejected" eventAndGuardLabel="Reject/" effectLabel="RecordRejected" eventGuardEffectLabel="Reject/RecordRejected">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Bozza" />
+        </flow>
+        <flow guard="Validate" eventAndGuardLabel="Validate/" effectLabel="" eventGuardEffectLabel="Validate/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Validato" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="Validato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Invalidate" eventAndGuardLabel="Invalidate/" effectLabel="" eventGuardEffectLabel="Invalidate/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Consolidato" />
+        </flow>
+        <flow guard="Publish[NotFall]" eventAndGuardLabel="Publish[NotFall]/" effectLabel="" eventGuardEffectLabel="Publish[NotFall]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Pubblicato" />
+        </flow>
+        <flow guard="Version[CreateBozza]" eventAndGuardLabel="Version[CreateBozza]/" effectLabel="" eventGuardEffectLabel="Version[CreateBozza]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/ValidatoVersionato" />
+        </flow>
+        <flow guard="SimpleFix" eventAndGuardLabel="SimpleFix/" effectLabel="" eventGuardEffectLabel="SimpleFix/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Correzione" />
+        </flow>
+        <flow guard="Reject" eventAndGuardLabel="Reject/" effectLabel="" eventGuardEffectLabel="Reject/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Bozza" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="Pubblicato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Version[CreateBozza]" eventAndGuardLabel="Version[CreateBozza]/" effectLabel="" eventGuardEffectLabel="Version[CreateBozza]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/PubblicatoVersionato" />
+        </flow>
+        <flow guard="Hide" eventAndGuardLabel="Hide/" effectLabel="" eventGuardEffectLabel="Hide/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Validato" />
+        </flow>
+        <flow guard="SimpleFix" eventAndGuardLabel="SimpleFix/" effectLabel="" eventGuardEffectLabel="SimpleFix/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Correzione" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="Correzione" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Save[RtfIn]" eventAndGuardLabel="Save[RtfIn]/" effectLabel="" eventGuardEffectLabel="Save[RtfIn]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Validato" />
+        </flow>
+      </flowTo>
+    </state>
+    <endPoint name="End">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+    </endPoint>
+    <state name="ValidatoVersionato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Revert[DupIsErased]" eventAndGuardLabel="Revert[DupIsErased]/" effectLabel="" eventGuardEffectLabel="Revert[DupIsErased]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Validato" />
+        </flow>
+        <flow guard="Publish[NotFall]" eventAndGuardLabel="Publish[NotFall]/" effectLabel="" eventGuardEffectLabel="Publish[NotFall]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/PubblicatoVersionato" />
+        </flow>
+        <flow guard="SimpleFix" eventAndGuardLabel="SimpleFix/" effectLabel="" eventGuardEffectLabel="SimpleFix/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/CorrezioneVersionato" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="PubblicatoVersionato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Revert[DupIsErased]" eventAndGuardLabel="Revert[DupIsErased]/" effectLabel="" eventGuardEffectLabel="Revert[DupIsErased]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/Pubblicato" />
+        </flow>
+        <flow guard="Hide" eventAndGuardLabel="Hide/" effectLabel="" eventGuardEffectLabel="Hide/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/ValidatoVersionato" />
+        </flow>
+        <flow guard="SimpleFix" eventAndGuardLabel="SimpleFix/" effectLabel="" eventGuardEffectLabel="SimpleFix/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/CorrezioneVersionato" />
+        </flow>
+      </flowTo>
+    </state>
+    <state name="CorrezioneVersionato" entryActionLabel="entry/" exitActionLabel="exit/">
+      <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      <flowTo>
+        <flow guard="Save[RtfIn]" eventAndGuardLabel="Save[RtfIn]/" effectLabel="" eventGuardEffectLabel="Save[RtfIn]/">
+          <ArrayOfExtensiblePropertyInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <stateMoniker name="/DocumentState/ValidatoVersionato" />
+        </flow>
+      </flowTo>
+    </state>
+  </flowElements>
+</stateGraph>
